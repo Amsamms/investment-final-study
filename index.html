@@ -25,21 +25,22 @@
 :root{
   /* Textbook / cream-paper theme — DEFAULT (reading-friendly) */
   --bg:#faf6ee;          /* cream paper */
-  --bg-2:#f3ebd9;        /* warmer card body */
-  --panel:#fdfaf3;       /* lightest panel */
-  --panel-2:#f5efe1;     /* secondary panel */
-  --line:#d9d0bf;        /* warm divider */
+  --bg-2:#f0e6d0;        /* warmer card body */
+  --panel:#fff8e8;       /* lightest panel */
+  --panel-2:#f4ead4;     /* secondary panel */
+  --line:#d4c9b3;        /* warm divider */
   --text:#1c1d20;        /* near-black warm */
   --heading:#2c3a5a;     /* slate blue for h-tags */
   --muted:#5a5040;       /* warm muted, ~6:1 on cream */
-  --accent:#4a6fa5;      /* dusky blue */
-  --accent-2:#c9943f;    /* warm amber */
-  --good:#5a8c4a;        /* muted forest */
-  --warn:#c9943f;        /* warm amber (same as accent-2) */
-  --bad:#b04848;         /* muted brick red */
-  --premium:#b88652;     /* muted bronze */
-  --discount:#b04848;
-  --par:#8a8270;         /* warm grey */
+  --accent:#3a5a8a;      /* dusky blue (deeper for AA) */
+  --accent-2:#9c6f1d;    /* deep amber for text use (4.6:1) */
+  --accent-2-fill:#c9943f;/* original lighter amber for backgrounds/charts */
+  --good:#3f6630;        /* deep forest (5.5:1) */
+  --warn:#8a6020;        /* deep amber for warning text */
+  --bad:#9a3838;         /* deeper brick (~5:1) */
+  --premium:#8a5a2a;     /* deep bronze (4.5:1) */
+  --discount:#9a3838;
+  --par:#5e574a;         /* deeper warm grey (~5:1) */
   --shadow:0 6px 22px rgba(40,30,20,.10);
   --radius:14px;
   --paper-grad:linear-gradient(180deg, #faf6ee 0%, #f7f2e6 100%);
@@ -72,7 +73,7 @@ body{
   color:var(--text);
   font-family:'Crimson Pro','Source Serif Pro','Iowan Old Style',Georgia,serif;
   font-size:18px;
-  line-height:1.7;
+  line-height:1.55;
   min-height:100vh;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
@@ -90,11 +91,22 @@ button, input, select, textarea, .chapter-tag, .cancelled-banner, .badge, .tab-b
 }
 header.app{
   position:sticky; top:0; z-index:50;
-  backdrop-filter: blur(10px);
-  background:rgba(250,246,238,.85);
+  background:rgba(250,246,238,.96);
   border-bottom:1px solid var(--line);
 }
-:root.dark header.app{background:rgba(11,16,32,.7)}
+:root.dark header.app{
+  background:rgba(11,16,32,.7);
+  backdrop-filter: blur(10px);
+}
+
+/* Visible focus rings on every keyboard-reachable control (a11y baseline) */
+:where(button, a, summary, input, select, textarea, [tabindex], .tab-btn, .filter-btn,
+.test-mode-toggle, .mock-action-btn, .mock-nav-btn, .theme-toggle, .answer-toggle,
+.mock-grid-cell):focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+  border-radius:inherit;
+}
 .nav{
   max-width:1200px; margin:0 auto;
   display:flex; align-items:center; gap:14px; padding:14px 22px;
@@ -104,7 +116,7 @@ header.app{
   font-family:'Lora',serif; font-weight:700; font-size:20px; margin:0;
   letter-spacing:.2px;
 }
-.nav h1 span{color:var(--accent-2)}
+.nav h1 span{color:var(--accent)}
 .nav .grow{flex:1}
 .tabs{display:flex; gap:6px; flex-wrap:wrap}
 .tab-btn{
@@ -115,15 +127,15 @@ header.app{
 }
 .tab-btn:hover{border-color:var(--accent); color:var(--text)}
 .tab-btn.active{
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  background:var(--accent);
   color:#fff; border-color:transparent;
-  box-shadow:0 4px 14px rgba(74,111,165,.30);
+  box-shadow:0 4px 14px rgba(58,90,138,.28);
 }
 .theme-toggle{
   border:1px solid var(--line); background:var(--panel); color:var(--text);
   width:38px; height:38px; border-radius:50%; cursor:pointer; font-size:16px;
 }
-main{max-width:1200px; margin:0 auto; padding:28px 22px 80px}
+main{max-width:920px; margin:0 auto; padding:28px 22px 80px}
 .tab-pane{display:none; animation:fade .25s ease}
 .tab-pane.active{display:block}
 @keyframes fade{from{opacity:0; transform:translateY(4px)}to{opacity:1; transform:none}}
@@ -131,10 +143,11 @@ main{max-width:1200px; margin:0 auto; padding:28px 22px 80px}
 h2.tab-title{
   font-family:'Lora',serif; font-weight:600; font-size:34px; margin:6px 0 4px;
   letter-spacing:.2px;
+  line-height:1.2;
   color:var(--heading);
 }
 .subtitle{color:var(--muted); margin:0 0 22px; font-size:15px; font-style:italic; line-height:1.5}
-.subtitle code, .subtitle .kbd{white-space:normal; word-break:break-word; overflow-wrap:anywhere; display:inline-block; max-width:100%; vertical-align:middle}
+.subtitle code, .subtitle .kbd{font-style:normal; white-space:normal; word-break:break-word; overflow-wrap:anywhere; display:inline-block; max-width:100%; vertical-align:middle}
 
 .card{
   background:linear-gradient(180deg, var(--panel), var(--panel-2));
@@ -197,10 +210,11 @@ hr{border:0; border-top:1px solid var(--line); margin:18px 0}
 }
 
 .example{
-  border-left:3px solid var(--accent-2);
-  background:rgba(34,211,238,.06);
+  border-left:3px solid var(--accent);
+  background:rgba(74,111,165,.06);
   padding:14px 18px; margin:14px 0; border-radius:0 10px 10px 0;
 }
+:root.dark .example{background:rgba(34,211,238,.06)}
 .example h5{
   font-family:'Inter',sans-serif;
   margin:0 0 10px; font-size:11px; color:var(--accent);
@@ -363,9 +377,9 @@ details.fc .answer strong{color:var(--text)}
 }
 .filter-btn:hover{border-color:var(--accent); color:var(--text)}
 .filter-btn.active{
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  background:var(--accent);
   color:#fff; border-color:transparent;
-  box-shadow:0 3px 10px rgba(74,111,165,.28);
+  box-shadow:0 3px 10px rgba(58,90,138,.25);
 }
 .filter-btn .badge{
   display:inline-block; margin-left:6px;
@@ -421,9 +435,10 @@ details.fc .answer strong{color:var(--text)}
   font-family:'JetBrains Mono',monospace; font-weight:600; color:var(--muted);
 }
 .exam-q.revealed .q-options li.correct{
-  background:rgba(52,211,153,.15);
+  background:rgba(63,102,48,.10);
   border-left:3px solid var(--good);
 }
+:root.dark .exam-q.revealed .q-options li.correct{background:rgba(52,211,153,.15)}
 .exam-q.revealed .q-options li.correct::before{
   color:var(--good);
 }
@@ -513,9 +528,9 @@ details.fc .answer strong{color:var(--text)}
   50%{opacity:.5}
 }
 .mock-submit-btn{
-  background:linear-gradient(135deg,#f87171,#fbbf24); color:#fff; border:none;
+  background:var(--bad); color:#fff; border:none;
   padding:9px 20px; border-radius:8px; font-weight:700; font-size:13px;
-  cursor:pointer; box-shadow:0 4px 14px rgba(248,113,113,.3);
+  cursor:pointer; box-shadow:0 4px 14px rgba(154,56,56,.30);
   letter-spacing:.5px;
 }
 .mock-submit-btn:hover{filter:brightness(1.1)}
@@ -543,7 +558,7 @@ details.fc .answer strong{color:var(--text)}
 }
 :root.dark #mockQuestionWrap .q-options li.selected{background:rgba(124,92,255,.10)}
 #mockQuestionWrap .q-options li.selected::before{
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  background:var(--accent);
   border-color:transparent; color:#fff;
 }
 
@@ -587,10 +602,9 @@ details.fc .answer strong{color:var(--text)}
 .mock-score-big{
   font-family:'JetBrains Mono',monospace; font-weight:800; font-size:72px;
   margin:8px 0; line-height:1;
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  -webkit-background-clip:text; background-clip:text; color:transparent;
+  color:var(--heading);
 }
-.mock-score-divider{color:var(--muted); -webkit-text-fill-color:var(--muted)}
+.mock-score-divider{color:var(--muted); margin:0 6px}
 .mock-score-pct{
   font-family:'JetBrains Mono',monospace; font-weight:700; font-size:24px;
   margin:8px 0;
@@ -606,10 +620,10 @@ details.fc .answer strong{color:var(--text)}
 .mock-score-verdict.fail{background:rgba(248,113,113,.18); color:var(--bad); border:1px solid var(--bad)}
 .mock-score-meta{color:var(--muted); font-size:13px; margin-top:14px}
 .mock-action-btn{
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  background:var(--accent);
   color:#fff; border:none; padding:11px 22px; border-radius:10px;
   font-weight:700; font-size:14px; cursor:pointer;
-  box-shadow:0 3px 10px rgba(74,111,165,.22);
+  box-shadow:0 3px 10px rgba(58,90,138,.22);
 }
 .mock-action-btn.secondary{
   background:var(--panel); color:var(--text); border:1px solid var(--line);
@@ -622,9 +636,12 @@ details.fc .answer strong{color:var(--text)}
   border:1px solid var(--line); border-radius:12px;
   padding:18px 22px; margin:14px 0;
 }
-.mock-review-q.wrong{border-color:rgba(248,113,113,.5); background:linear-gradient(180deg, rgba(248,113,113,.06), rgba(248,113,113,.02))}
-.mock-review-q.right{border-color:rgba(52,211,153,.4); background:linear-gradient(180deg, rgba(52,211,153,.05), rgba(52,211,153,.02))}
-.mock-review-q.skipped{border-color:rgba(251,191,36,.4); background:linear-gradient(180deg, rgba(251,191,36,.05), rgba(251,191,36,.02))}
+.mock-review-q.wrong{border-color:rgba(154,56,56,.45); background:linear-gradient(180deg, rgba(154,56,56,.05), rgba(154,56,56,.02))}
+.mock-review-q.right{border-color:rgba(63,102,48,.40); background:linear-gradient(180deg, rgba(63,102,48,.05), rgba(63,102,48,.02))}
+.mock-review-q.skipped{border-color:rgba(138,96,32,.40); background:linear-gradient(180deg, rgba(138,96,32,.05), rgba(138,96,32,.02))}
+:root.dark .mock-review-q.wrong{border-color:rgba(248,113,113,.5); background:linear-gradient(180deg, rgba(248,113,113,.06), rgba(248,113,113,.02))}
+:root.dark .mock-review-q.right{border-color:rgba(52,211,153,.4); background:linear-gradient(180deg, rgba(52,211,153,.05), rgba(52,211,153,.02))}
+:root.dark .mock-review-q.skipped{border-color:rgba(251,191,36,.4); background:linear-gradient(180deg, rgba(251,191,36,.05), rgba(251,191,36,.02))}
 .mock-review-head{
   display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:12px;
 }
@@ -646,7 +663,8 @@ details.fc .answer strong{color:var(--text)}
   font-family:'JetBrains Mono',monospace; font-weight:600; color:var(--muted);
 }
 .mock-review-q .q-options li.user-pick{border-left:3px solid var(--accent)}
-.mock-review-q .q-options li.correct{background:rgba(52,211,153,.18); border-left:3px solid var(--good)}
+.mock-review-q .q-options li.correct{background:rgba(63,102,48,.14); border-left:3px solid var(--good)}
+:root.dark .mock-review-q .q-options li.correct{background:rgba(52,211,153,.18)}
 .mock-review-q .q-options li.user-wrong{background:rgba(248,113,113,.18); border-left:3px solid var(--bad)}
 .mock-review-q .q-options li.correct::before, .mock-review-q .q-options li.user-wrong::before{
   color:#fff;
@@ -709,6 +727,16 @@ footer{
   main{padding:16px 12px 60px}
   .tab-title{font-size:22px; margin:4px 0 2px}
   .subtitle{font-size:13px; margin-bottom:14px}
+
+  /* WCAG 2.5.5 — 44px minimum tap targets on mobile */
+  .filter-btn, .tab-btn, .answer-toggle, .theme-toggle, .test-mode-toggle,
+  .mock-nav-btn, .mock-action-btn, .mock-submit-btn{
+    min-height:44px;
+    display:inline-flex; align-items:center;
+  }
+  /* details.fc summary stays display:block (preserves position:relative for ::after with <sub> tags) */
+  details.fc summary{min-height:44px; padding-top:10px; padding-bottom:10px}
+  .mock-grid-cell{min-width:36px; min-height:36px}
 
   .card{padding:14px 16px; margin:12px 0}
   .card h3{font-size:18px}
@@ -832,7 +860,7 @@ footer{
       <button class="tab-btn" data-tab="exam">Practice Exam</button>
       <button class="tab-btn" data-tab="mock" style="background:linear-gradient(135deg,#f87171,#fbbf24);color:#fff;border-color:transparent">⏱ Actual Exam Test</button>
     </div>
-    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">🌙</button>
+    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode" aria-pressed="false">🌙</button>
   </div>
 </header>
 
@@ -3515,7 +3543,7 @@ E[R_p] = 0.50 × 12.5%  +  0.50 × 20%
           </select>
         </div>
       </div>
-      <button id="startMockBtn" style="background:linear-gradient(135deg,#f87171,#fbbf24);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 6px 20px rgba(248,113,113,.4);letter-spacing:.5px">START EXAM →</button>
+      <button id="startMockBtn" style="background:var(--accent);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 6px 20px rgba(58,90,138,.30);letter-spacing:.5px">START EXAM →</button>
     </div>
     <div class="card" style="background:rgba(34,211,238,.06); border-color:rgba(34,211,238,.3)">
       <h4>📊 Tips for self-testing</h4>
@@ -3572,7 +3600,7 @@ E[R_p] = 0.50 × 12.5%  +  0.50 × 20%
 
 <footer style="text-align:center; padding:30px 22px 50px;">
   <div style="font-family:'Lora',serif; font-size:18px; font-weight:600; color:var(--text); letter-spacing:.4px;">
-    Made by <span style="background:linear-gradient(135deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent;">Ahmed Sabri</span>
+    Made by <span style="color:var(--heading); font-weight:700">Ahmed Sabri</span>
   </div>
   <div style="margin-top:6px; font-size:13px; color:var(--muted);">Investment · Final Exam Study Guide</div>
 </footer>
@@ -3689,9 +3717,23 @@ tabs.forEach(t => t.addEventListener('click', () => {
 
 // ===== Theme toggle =====
 const themeBtn = document.getElementById('themeToggle');
+function applyTheme(isDark){
+  document.documentElement.classList.toggle('dark', isDark);
+  themeBtn.textContent = isDark ? '☀️' : '🌙';
+  themeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+  // Re-render any active Chart.js charts so their hardcoded colors match the new theme
+  if(window.Chart && Chart.instances){
+    Object.values(Chart.instances).forEach(ch => { try{ ch.update('none'); }catch(_){} });
+  }
+}
+try{
+  const saved = localStorage.getItem('investment-study-theme');
+  if(saved === 'dark') applyTheme(true);
+}catch(_){}
 themeBtn.addEventListener('click', () => {
-  document.documentElement.classList.toggle('dark');
-  themeBtn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+  const willBeDark = !document.documentElement.classList.contains('dark');
+  applyTheme(willBeDark);
+  try{ localStorage.setItem('investment-study-theme', willBeDark ? 'dark' : 'cream'); }catch(_){}
 });
 
 // ===== Bond price helper =====
@@ -3795,7 +3837,7 @@ window.addEventListener('load', () => {
       labels: Array.from({length:31}, (_,i) => 30-i),  // years remaining (descending)
       datasets:[
         {label:'k_d = 7% (premium)', data: pData.map(p=>p.y), borderColor:'#b88652', backgroundColor:'rgba(184,134,82,.15)', tension:0.25, pointRadius:0, borderWidth:2.5, fill:false},
-        {label:'k_d = 10% (par)',    data: parData.map(p=>p.y), borderColor:'#8a8270', backgroundColor:'rgba(138,130,112,.15)', tension:0, pointRadius:0, borderWidth:2.5, fill:false, borderDash:[6,4]},
+        {label:'k_d = 10% (par)',    data: parData.map(p=>p.y), borderColor:'#5e574a', backgroundColor:'rgba(94,87,74,.12)', tension:0, pointRadius:0, borderWidth:2.5, fill:false, borderDash:[6,4]},
         {label:'k_d = 13% (discount)', data: dData.map(p=>p.y), borderColor:'#b04848', backgroundColor:'rgba(176,72,72,.15)', tension:0.25, pointRadius:0, borderWidth:2.5, fill:false},
       ]
     },
