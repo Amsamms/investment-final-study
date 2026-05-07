@@ -417,6 +417,191 @@ details.fc .answer strong{color:var(--text)}
   content:"📚 BONUS / NOT EXAM-SCOPE  ";
   color:var(--bad); font-weight:700; font-size:11px; letter-spacing:1px;
 }
+
+/* Actual Exam Test (mock) */
+.mock-header{
+  position:sticky; top:64px; z-index:30;
+  background:linear-gradient(135deg, rgba(248,113,113,.18), rgba(251,191,36,.12));
+  border:1px solid rgba(248,113,113,.4);
+  backdrop-filter:blur(8px);
+  display:flex; align-items:center; gap:18px; padding:14px 22px; border-radius:12px;
+  margin-bottom:18px;
+  box-shadow:0 6px 24px rgba(0,0,0,.2);
+  flex-wrap:wrap;
+}
+.mock-progress{
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:18px;
+  color:var(--text);
+}
+.mock-progress span{color:var(--accent-2)}
+.mock-timer-wrap{
+  display:flex; align-items:center; gap:6px; margin-left:auto;
+  background:var(--bg); border:1px solid var(--line); border-radius:10px;
+  padding:6px 14px;
+}
+.mock-timer-label{font-size:18px}
+.mock-timer{
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:22px;
+  color:var(--good);
+  letter-spacing:1px;
+  min-width:80px; text-align:center;
+}
+.mock-timer.warning{color:var(--warn)}
+.mock-timer.critical{
+  color:var(--bad);
+  animation: pulseTimer 1s ease-in-out infinite;
+}
+@keyframes pulseTimer{
+  0%,100%{opacity:1}
+  50%{opacity:.5}
+}
+.mock-submit-btn{
+  background:linear-gradient(135deg,#f87171,#fbbf24); color:#fff; border:none;
+  padding:9px 20px; border-radius:8px; font-weight:700; font-size:13px;
+  cursor:pointer; box-shadow:0 4px 14px rgba(248,113,113,.3);
+  letter-spacing:.5px;
+}
+.mock-submit-btn:hover{filter:brightness(1.1)}
+
+#mockQuestionWrap .q-options{list-style:none; padding:0; margin:14px 0}
+#mockQuestionWrap .q-options li{
+  background:var(--bg-2); border:1px solid var(--line); border-radius:10px;
+  padding:14px 18px 14px 50px; margin:8px 0; position:relative;
+  cursor:pointer; transition:all .15s; font-size:15px;
+}
+#mockQuestionWrap .q-options li::before{
+  content:attr(data-letter); position:absolute; left:14px; top:50%;
+  transform:translateY(-50%);
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:14px;
+  width:28px; height:28px; border-radius:50%;
+  background:var(--bg); border:2px solid var(--line);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--muted);
+  transition:all .15s;
+}
+#mockQuestionWrap .q-options li:hover{border-color:var(--accent-2)}
+#mockQuestionWrap .q-options li:hover::before{border-color:var(--accent-2); color:var(--accent-2)}
+#mockQuestionWrap .q-options li.selected{
+  border-color:var(--accent); background:rgba(124,92,255,.10);
+}
+#mockQuestionWrap .q-options li.selected::before{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  border-color:transparent; color:#fff;
+}
+
+.mock-nav{
+  display:flex; align-items:center; gap:14px; margin:16px 0;
+  flex-wrap:wrap;
+}
+.mock-nav-btn{
+  background:var(--panel); border:1px solid var(--line); color:var(--text);
+  padding:10px 18px; border-radius:8px; font-weight:600; cursor:pointer;
+  transition:.15s;
+}
+.mock-nav-btn:hover{border-color:var(--accent); color:var(--accent)}
+.mock-nav-btn:disabled{opacity:.4; cursor:not-allowed}
+.mock-question-grid{
+  display:flex; gap:6px; flex-wrap:wrap; flex:1; justify-content:center;
+}
+.mock-grid-cell{
+  width:32px; height:32px; border-radius:6px; cursor:pointer;
+  border:1px solid var(--line); background:var(--bg-2);
+  font-family:'JetBrains Mono',monospace; font-weight:600; font-size:12px;
+  color:var(--muted);
+  display:flex; align-items:center; justify-content:center;
+  transition:.15s;
+}
+.mock-grid-cell.answered{
+  background:var(--accent); border-color:var(--accent); color:#fff;
+}
+.mock-grid-cell.current{
+  outline:2px solid var(--accent-2); outline-offset:2px;
+}
+.mock-grid-cell:hover{border-color:var(--accent-2)}
+
+.mock-score-card{
+  text-align:center; padding:36px 24px;
+  background:linear-gradient(180deg, var(--panel), var(--panel-2));
+}
+.mock-score-label{
+  color:var(--muted); font-size:13px; text-transform:uppercase; letter-spacing:1.5px;
+}
+.mock-score-big{
+  font-family:'JetBrains Mono',monospace; font-weight:800; font-size:72px;
+  margin:8px 0; line-height:1;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.mock-score-divider{color:var(--muted); -webkit-text-fill-color:var(--muted)}
+.mock-score-pct{
+  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:24px;
+  margin:8px 0;
+}
+.mock-score-verdict{
+  display:inline-block; padding:8px 20px; border-radius:999px;
+  font-weight:700; font-size:14px; letter-spacing:.5px;
+  margin:10px 0;
+}
+.mock-score-verdict.excellent{background:rgba(52,211,153,.18); color:var(--good); border:1px solid var(--good)}
+.mock-score-verdict.good{background:rgba(34,211,238,.18); color:var(--accent-2); border:1px solid var(--accent-2)}
+.mock-score-verdict.pass{background:rgba(251,191,36,.18); color:var(--warn); border:1px solid var(--warn)}
+.mock-score-verdict.fail{background:rgba(248,113,113,.18); color:var(--bad); border:1px solid var(--bad)}
+.mock-score-meta{color:var(--muted); font-size:13px; margin-top:14px}
+.mock-action-btn{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#fff; border:none; padding:11px 22px; border-radius:10px;
+  font-weight:700; font-size:14px; cursor:pointer;
+  box-shadow:0 4px 14px rgba(124,92,255,.3);
+}
+.mock-action-btn.secondary{
+  background:var(--panel); color:var(--text); border:1px solid var(--line);
+  box-shadow:none;
+}
+.mock-action-btn:hover{filter:brightness(1.1)}
+
+.mock-review-q{
+  background:linear-gradient(180deg, var(--panel), var(--panel-2));
+  border:1px solid var(--line); border-radius:12px;
+  padding:18px 22px; margin:14px 0;
+}
+.mock-review-q.wrong{border-color:rgba(248,113,113,.5); background:linear-gradient(180deg, rgba(248,113,113,.06), rgba(248,113,113,.02))}
+.mock-review-q.right{border-color:rgba(52,211,153,.4); background:linear-gradient(180deg, rgba(52,211,153,.05), rgba(52,211,153,.02))}
+.mock-review-q.skipped{border-color:rgba(251,191,36,.4); background:linear-gradient(180deg, rgba(251,191,36,.05), rgba(251,191,36,.02))}
+.mock-review-head{
+  display:flex; align-items:center; gap:10px; margin-bottom:8px; font-size:12px;
+}
+.mock-status{
+  display:inline-block; padding:3px 10px; border-radius:6px;
+  font-weight:700; letter-spacing:.5px; font-size:11px; text-transform:uppercase;
+}
+.mock-status.right{background:var(--good); color:#fff}
+.mock-status.wrong{background:var(--bad); color:#fff}
+.mock-status.skipped{background:var(--warn); color:#1a1a1a}
+.mock-review-q .q-options{list-style:none; padding:0; margin:8px 0}
+.mock-review-q .q-options li{
+  padding:8px 14px 8px 36px; margin:3px 0; position:relative;
+  border-radius:6px; font-size:14px;
+}
+.mock-review-q .q-options li::before{
+  content:attr(data-letter); position:absolute; left:10px; top:50%;
+  transform:translateY(-50%);
+  font-family:'JetBrains Mono',monospace; font-weight:600; color:var(--muted);
+}
+.mock-review-q .q-options li.user-pick{border-left:3px solid var(--accent)}
+.mock-review-q .q-options li.correct{background:rgba(52,211,153,.18); border-left:3px solid var(--good)}
+.mock-review-q .q-options li.user-wrong{background:rgba(248,113,113,.18); border-left:3px solid var(--bad)}
+.mock-review-q .q-options li.correct::before, .mock-review-q .q-options li.user-wrong::before{
+  color:#fff;
+}
+.mock-review-q .review-explanation{
+  margin-top:10px; padding:10px 14px; background:var(--bg-2);
+  border-left:3px solid var(--accent-2); border-radius:0 8px 8px 0;
+  font-size:13px;
+}
+.mock-review-q .review-explanation strong.label{
+  color:var(--accent-2); display:inline-block; min-width:90px;
+  font-size:11px; text-transform:uppercase; letter-spacing:.5px;
+}
 .exam-q[data-cancelled="1"][hidden]{display:none}
 :root.light .exam-q-cancelled{
   background:linear-gradient(180deg, rgba(248,113,113,.08), rgba(248,113,113,.03)) !important;
@@ -453,6 +638,7 @@ footer{
       <button class="tab-btn" data-tab="opts">Options Contracts</button>
       <button class="tab-btn" data-tab="ch5">Ch 5 — Risk &amp; Return</button>
       <button class="tab-btn" data-tab="exam">Practice Exam</button>
+      <button class="tab-btn" data-tab="mock" style="background:linear-gradient(135deg,#f87171,#fbbf24);color:#fff;border-color:transparent">⏱ Actual Exam Test</button>
     </div>
     <button class="theme-toggle" id="themeToggle" title="Toggle light/dark">🌙</button>
   </div>
@@ -3105,6 +3291,91 @@ E[R_p] = 0.50 × 12.5%  +  0.50 × 20%
   <div id="examQuestions"></div>
 </section>
 
+<!-- ===================== Actual Exam Test (Mock) ===================== -->
+<section class="tab-pane" id="mock">
+  <h2 class="tab-title">⏱ Actual Exam Test</h2>
+  <p class="subtitle">Timed mock exam: 40 random questions from the Practice Exam bank. Same length as Dr. Nehal's Spring 2026 final. Each attempt re-randomizes — no two are identical.</p>
+
+  <!-- LANDING SCREEN -->
+  <div id="mock-landing">
+    <div class="card">
+      <h3>Ready to start a mock exam?</h3>
+      <p><strong>Format:</strong> 40 multiple-choice questions, randomly drawn from the Practice Exam bank (excluding cancelled-topic questions when applicable).</p>
+      <p><strong>Timer:</strong> Counts down from your chosen duration. The exam <em>auto-submits</em> when time runs out, so pace yourself.</p>
+      <p><strong>During the exam:</strong> No answers shown. You can navigate forward/back between questions, change answers, and submit early when ready.</p>
+      <p><strong>After submitting:</strong> See your score out of 40, then review every question you got wrong with the correct answer and reasoning. Questions you got right are also visible to confirm.</p>
+      <div class="grid-2" style="margin:20px 0">
+        <div>
+          <label style="display:block; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px">Time limit</label>
+          <select id="mockDuration" style="background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:16px;width:100%">
+            <option value="60">60 minutes (1.5 min/Q — fast pace)</option>
+            <option value="90" selected>90 minutes (2.25 min/Q — recommended)</option>
+            <option value="120">120 minutes (3 min/Q — comfortable)</option>
+            <option value="0">No time limit (untimed practice)</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px">Number of questions</label>
+          <select id="mockCount" style="background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:16px;width:100%">
+            <option value="40" selected>40 (matches the actual exam length)</option>
+            <option value="20">20 (quick drill)</option>
+            <option value="50">50 (extended)</option>
+          </select>
+        </div>
+      </div>
+      <button id="startMockBtn" style="background:linear-gradient(135deg,#f87171,#fbbf24);color:#fff;border:none;padding:14px 32px;border-radius:10px;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 6px 20px rgba(248,113,113,.4);letter-spacing:.5px">START EXAM →</button>
+    </div>
+    <div class="card" style="background:rgba(34,211,238,.06); border-color:rgba(34,211,238,.3)">
+      <h4>📊 Tips for self-testing</h4>
+      <ul>
+        <li>Treat it like the real thing: no notes, no chapter tabs, no looking up.</li>
+        <li>If you finish early, double-check your answers <em>before</em> submitting — once submitted, you can't change them.</li>
+        <li>Aim for 80%+ before walking into the actual exam. Below 70% means more chapter review first.</li>
+        <li>Run multiple mocks across the week — different random sets each time will expose any gaps.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EXAM-IN-PROGRESS SCREEN -->
+  <div id="mock-active" style="display:none">
+    <div class="mock-header">
+      <div class="mock-progress"><span id="mockQNum">1</span> of <span id="mockTotal">40</span></div>
+      <div class="mock-timer-wrap">
+        <span class="mock-timer-label">⏱</span>
+        <span class="mock-timer" id="mockTimer">90:00</span>
+      </div>
+      <button id="mockSubmitBtn" class="mock-submit-btn">Submit exam</button>
+    </div>
+    <div id="mockQuestionWrap" class="card"></div>
+    <div class="mock-nav">
+      <button id="mockPrevBtn" class="mock-nav-btn">← Previous</button>
+      <div class="mock-question-grid" id="mockGrid"></div>
+      <button id="mockNextBtn" class="mock-nav-btn">Next →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="mock-results" style="display:none">
+    <div class="card mock-score-card">
+      <div class="mock-score-label">Your score</div>
+      <div class="mock-score-big">
+        <span id="mockScoreCorrect">0</span> <span class="mock-score-divider">/</span> <span id="mockScoreTotal">40</span>
+      </div>
+      <div class="mock-score-pct" id="mockScorePct">0%</div>
+      <div id="mockScoreVerdict" class="mock-score-verdict">—</div>
+      <div class="mock-score-meta">
+        Time used: <span id="mockTimeUsed">—</span> &nbsp;·&nbsp;
+        Questions answered: <span id="mockAnswered">—</span> / <span id="mockTotalAns">—</span>
+      </div>
+      <div style="margin-top:20px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
+        <button id="mockRetryBtn" class="mock-action-btn">↻ Take another mock</button>
+        <button id="mockReviewToggleBtn" class="mock-action-btn secondary">Show all questions (right + wrong)</button>
+      </div>
+    </div>
+    <div id="mockReviewArea"></div>
+  </div>
+</section>
+
 </main>
 
 <footer style="text-align:center; padding:30px 22px 50px;">
@@ -3166,6 +3437,13 @@ window.__examBank = [
   {c:'ch5', src:'INV QUIZ 2 Q19', q:'According to the CAPM, the expected rate of return on any security is equal to:', o:["R_f + β·E(R_M)","R_f + β·[E(R_M) − R_f]","β·[E(R_M) − R_f]","E(R_M) + R_f","R_f − β·[E(R_M) − R_f]"], a:1, r:"The exact CAPM/SML equation: K_i = R_f + β(R_M − R_f). It says required return = risk-free + (beta times market risk premium).", f:"K = R_f + β(R_M − R_f)"},
   {c:'ch5', src:'INV QUIZ 2 Q20', q:'The Security Market Line (SML) is:', o:["the line that describes the expected return-beta relationship for well-diversified portfolios only","also called the Capital Allocation Line","the line that is tangent to the efficient frontier of all risky assets","the line that represents the expected return-beta relationship","also called the Capital Market Line"], a:3, r:"SML plots required return on the y-axis against beta on the x-axis, for ALL securities (not just well-diversified portfolios). Intercept = R_f, slope = market risk premium. CML and CAL are different concepts.", f:""},
   {c:'ch5', src:'INV QUIZ 2 Q22', q:'You invest $600 in a security with beta 1.2 and $400 in another security with beta 0.90. The beta of the resulting portfolio is:', o:["1.40","1.00","0.36","1.08","0.80"], a:3, r:"Portfolio beta is a weighted average of individual betas. w_1 = 600/1000 = 0.6, w_2 = 400/1000 = 0.4. β_p = 0.6·1.2 + 0.4·0.9 = 0.72 + 0.36 = 1.08.", f:"β_p = Σ w_i · β_i"},
+
+  // ===== FINAL Inv ACAD Spring 22 — questions UNIQUE to this exam (not in ENPI 23 duplicate) =====
+  {c:'ch5', src:'FINAL Acad 22 Q9', q:'Investors should be willing to invest in riskier investments only:', o:["if the term is short.","if there are no safe alternatives except for holding cash.","if the expected return is adequate for the risk level.","if they are true speculators."], a:2, r:"The fundamental risk-return trade-off in investing: rational investors only accept higher risk if they're compensated with higher expected return. (a)–(d) are scenario rationalizations; (c) captures the underlying logic. This is the core idea behind CAPM and the market risk premium.", f:""},
+  {c:'ch5', src:'FINAL Acad 22 Q22', q:"Given the following probability distribution for security XYZ, calculate its expected return: 20% with probability 0.30, 30% with probability 0.20, −40% with probability 0.10, 50% with probability 0.10, 10% with probability 0.30.", o:["16%","22%","25%","18%"], a:0, r:"E[R] = 0.30·20% + 0.20·30% + 0.10·(−40%) + 0.10·50% + 0.30·10% = 6% + 6% + (−4%) + 5% + 3% = 16%. Note: even with a state of catastrophic loss (−40%) and one of jackpot (+50%), the probability-weighted average is still 16% because the most likely state (the 30% prob 20% return + 30% prob 10% return states) anchors the mean.", f:"E[R] = Σ p_i R_i"},
+  {c:'ch5', src:'FINAL Acad 22 Q24', q:"Security A and Security B have a correlation coefficient of 0. If Security A's return is expected to increase by 10 percent:", o:["Security B's return should also increase by 10 percent.","Security B's return should decrease by 10 percent.","Security B's return should be zero.","Security B's return is impossible to determine from the above information."], a:3, r:"ρ = 0 means there is NO LINEAR RELATIONSHIP between A and B's returns. Knowing one tells you nothing about the other in expectation. This is exactly the textbook interpretation of zero correlation. (a) and (b) describe ρ = +1 and ρ = −1 respectively; (c) confuses correlation with conditional return.", f:""},
+  {c:'ch5', src:'FINAL Acad 22 Q32', q:"TRUE / FALSE: Portfolio risk is a weighted average of the individual security risks.", o:["TRUE","FALSE"], a:1, r:"FALSE. Portfolio EXPECTED RETURN is a weighted average — but portfolio RISK (variance/std dev) is NOT a simple weighted average of σ's. The covariance term means σ²_p = w_A²σ_A² + w_B²σ_B² + 2w_Aw_B·Cov(A,B), and when ρ < 1, the portfolio σ is BELOW the weighted average of individual σ's (this is the diversification benefit). Only when ρ = +1 does portfolio σ exactly equal the weighted average. Common exam trap — easy to confuse with the always-true expected-return identity.", f:"σ²_p = w_A²σ_A² + w_B²σ_B² + 2w_Aw_B·ρ_AB·σ_A·σ_B"},
+  {c:'ch5', src:'FINAL Acad 22 Q33', q:"TRUE / FALSE: Portfolio risk can be reduced by reducing portfolio weights for assets with positive correlations.", o:["TRUE","FALSE"], a:0, r:"TRUE. Strongly positively correlated assets contribute the most to portfolio variance (the 2w_Aw_B·ρ·σ_A·σ_B term grows with positive ρ). Reducing those weights — and reallocating to assets with low or negative correlation — reduces total portfolio variance. This is the basic logic of diversification.", f:""},
 
   // ===== Arabic exam (Spring 2026 parallel class, in-scope = 4 chapters; indexes Q9/Q10/Q32-35 dropped) =====
   {c:'ch8', src:'Arabic exam Spring 2026 Q1', q:'The bond\'s value at the moment of issuance, which the investor must pay to receive the bond from the issuer, represents:', o:["nominal (face) value","book value","market value","fair value","none of the above"], a:0, r:"The amount printed on the bond and paid by the original investor at issuance = nominal/face/par value. This is the M in V_B formulas. Don't confuse with market value (changes daily) or fair value (computed from PV of cash flows).", f:""},
@@ -3648,6 +3926,247 @@ window.addEventListener('load', () => {
       applyExamFilter();
     });
   }
+
+  // ===== Actual Exam Test (mock) =====
+  let mockState = null;
+  let mockTimerInterval = null;
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i+1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function startMock(){
+    const duration = parseInt(document.getElementById('mockDuration').value, 10) || 0;
+    const count = parseInt(document.getElementById('mockCount').value, 10) || 40;
+    // Build the candidate pool: in-scope, non-cancelled, with answer index defined
+    const pool = examBank.filter(q => !q.cancelled && typeof q.a === 'number' && Array.isArray(q.o) && q.o.length > 0);
+    const picked = shuffle(pool).slice(0, Math.min(count, pool.length));
+    mockState = {
+      questions: picked,
+      answers: new Array(picked.length).fill(null),
+      currentIdx: 0,
+      duration: duration * 60,    // seconds; 0 = no limit
+      remaining: duration * 60,
+      startedAt: Date.now(),
+      submitted: false
+    };
+    document.getElementById('mock-landing').style.display = 'none';
+    document.getElementById('mock-results').style.display = 'none';
+    document.getElementById('mock-active').style.display = 'block';
+    document.getElementById('mockTotal').textContent = picked.length;
+    renderMockGrid();
+    showMockQuestion(0);
+    if(duration > 0){
+      updateMockTimer();
+      mockTimerInterval = setInterval(() => {
+        mockState.remaining--;
+        updateMockTimer();
+        if(mockState.remaining <= 0) submitMock(true);
+      }, 1000);
+    } else {
+      document.getElementById('mockTimer').textContent = '∞';
+    }
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function updateMockTimer(){
+    const el = document.getElementById('mockTimer');
+    const r = Math.max(0, mockState.remaining);
+    const mm = Math.floor(r / 60);
+    const ss = r % 60;
+    el.textContent = `${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
+    el.classList.remove('warning','critical');
+    if(r <= 60) el.classList.add('critical');
+    else if(r <= 300) el.classList.add('warning');
+  }
+
+  function showMockQuestion(idx){
+    if(!mockState || idx < 0 || idx >= mockState.questions.length) return;
+    mockState.currentIdx = idx;
+    const q = mockState.questions[idx];
+    document.getElementById('mockQNum').textContent = idx + 1;
+    const wrap = document.getElementById('mockQuestionWrap');
+    const userAns = mockState.answers[idx];
+    const opts = (q.o||[]).map((opt, i) => {
+      const letter = String.fromCharCode(97+i);
+      return `<li data-letter="${letter})" data-idx="${i}" class="${userAns === i ? 'selected' : ''}">${opt}</li>`;
+    }).join('');
+    wrap.innerHTML = `
+      <div class="exam-q-head">
+        <span class="chapter-tag ${q.c}">${chapterLabels[q.c]||q.c}</span>
+        <span class="q-num">Q${idx+1} / ${mockState.questions.length}</span>
+      </div>
+      <p class="q-text" style="font-size:16px; font-weight:500; margin:10px 0 4px">${q.q}</p>
+      <ul class="q-options">${opts}</ul>
+      <p class="muted" style="font-size:13px; margin-top:14px">Click an option to select / change your answer. Use Previous / Next or the question grid below to navigate. Your answers are saved as you go.</p>
+    `;
+    wrap.querySelectorAll('.q-options li').forEach(li => {
+      li.addEventListener('click', () => {
+        const i = parseInt(li.dataset.idx, 10);
+        mockState.answers[mockState.currentIdx] = i;
+        wrap.querySelectorAll('.q-options li').forEach(x => x.classList.remove('selected'));
+        li.classList.add('selected');
+        renderMockGrid();
+      });
+    });
+    // update prev/next buttons
+    document.getElementById('mockPrevBtn').disabled = (idx === 0);
+    document.getElementById('mockNextBtn').disabled = (idx === mockState.questions.length - 1);
+    // update grid current marker
+    document.querySelectorAll('.mock-grid-cell').forEach((cell, i) => {
+      cell.classList.toggle('current', i === idx);
+    });
+  }
+
+  function renderMockGrid(){
+    const grid = document.getElementById('mockGrid');
+    if(!mockState) return;
+    grid.innerHTML = mockState.questions.map((_, i) => {
+      const answered = mockState.answers[i] !== null;
+      const current = i === mockState.currentIdx;
+      return `<button class="mock-grid-cell ${answered?'answered':''} ${current?'current':''}" data-idx="${i}">${i+1}</button>`;
+    }).join('');
+    grid.querySelectorAll('.mock-grid-cell').forEach(cell => {
+      cell.addEventListener('click', () => showMockQuestion(parseInt(cell.dataset.idx,10)));
+    });
+  }
+
+  function submitMock(autoFromTimeout){
+    if(!mockState || mockState.submitted) return;
+    if(!autoFromTimeout){
+      const unanswered = mockState.answers.filter(a => a === null).length;
+      const msg = unanswered > 0
+        ? `You have ${unanswered} unanswered question${unanswered>1?'s':''}. Submit anyway?`
+        : 'Submit your exam? You won\'t be able to change answers.';
+      if(!confirm(msg)) return;
+    }
+    mockState.submitted = true;
+    if(mockTimerInterval){ clearInterval(mockTimerInterval); mockTimerInterval = null; }
+    // compute score
+    let correct = 0, wrong = 0, skipped = 0;
+    mockState.questions.forEach((q, i) => {
+      const a = mockState.answers[i];
+      if(a === null) skipped++;
+      else if(a === q.a) correct++;
+      else wrong++;
+    });
+    const total = mockState.questions.length;
+    const pct = Math.round((correct/total)*100);
+    const elapsed = mockState.duration > 0
+      ? mockState.duration - Math.max(0, mockState.remaining)
+      : Math.floor((Date.now() - mockState.startedAt)/1000);
+    const mm = Math.floor(elapsed/60), ss = elapsed%60;
+    document.getElementById('mockScoreCorrect').textContent = correct;
+    document.getElementById('mockScoreTotal').textContent = total;
+    document.getElementById('mockScorePct').textContent = pct + '%';
+    document.getElementById('mockTimeUsed').textContent = `${mm}m ${String(ss).padStart(2,'0')}s${autoFromTimeout?' (timed out)':''}`;
+    document.getElementById('mockAnswered').textContent = total - skipped;
+    document.getElementById('mockTotalAns').textContent = total;
+    const verdict = document.getElementById('mockScoreVerdict');
+    verdict.classList.remove('excellent','good','pass','fail');
+    if(pct >= 85){ verdict.textContent = 'EXCELLENT — exam-ready'; verdict.classList.add('excellent'); }
+    else if(pct >= 70){ verdict.textContent = 'GOOD — solid pass'; verdict.classList.add('good'); }
+    else if(pct >= 60){ verdict.textContent = 'PASS — review weak areas'; verdict.classList.add('pass'); }
+    else{ verdict.textContent = 'NEEDS WORK — re-read chapters'; verdict.classList.add('fail'); }
+    // Build review (only wrong + skipped by default)
+    renderMockReview(false);
+    document.getElementById('mock-active').style.display = 'none';
+    document.getElementById('mock-results').style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function renderMockReview(showAll){
+    const area = document.getElementById('mockReviewArea');
+    if(!mockState) return;
+    const blocks = mockState.questions.map((q, i) => {
+      const userAns = mockState.answers[i];
+      const isWrong = userAns !== null && userAns !== q.a;
+      const isSkipped = userAns === null;
+      const isRight = userAns === q.a;
+      if(!showAll && isRight) return ''; // only show wrong + skipped by default
+      const status = isRight ? 'right' : (isWrong ? 'wrong' : 'skipped');
+      const statusLabel = isRight ? '✓ CORRECT' : (isWrong ? '✗ WRONG' : '— SKIPPED');
+      const opts = (q.o||[]).map((opt, idx) => {
+        const letter = String.fromCharCode(97+idx);
+        const classes = [];
+        if(idx === q.a) classes.push('correct');
+        if(idx === userAns && idx !== q.a) classes.push('user-wrong');
+        if(idx === userAns) classes.push('user-pick');
+        return `<li data-letter="${letter})" class="${classes.join(' ')}">${opt}</li>`;
+      }).join('');
+      const userLetter = userAns === null ? '—' : String.fromCharCode(97+userAns).toUpperCase();
+      const correctLetter = String.fromCharCode(97+q.a).toUpperCase();
+      return `<div class="mock-review-q ${status}">
+        <div class="mock-review-head">
+          <span class="mock-status ${status}">${statusLabel}</span>
+          <span class="chapter-tag ${q.c}">${chapterLabels[q.c]||q.c}</span>
+          <span class="q-num">Q${i+1}</span>
+          <span class="q-source" style="margin-left:auto">Source: ${q.src}</span>
+        </div>
+        <p class="q-text" style="margin:8px 0">${q.q}</p>
+        <ul class="q-options">${opts}</ul>
+        <div class="review-explanation">
+          <p><strong class="label">Your answer:</strong> ${userLetter}</p>
+          <p><strong class="label">Correct:</strong> ${correctLetter}</p>
+          <p><strong class="label">Why:</strong> ${q.r||''}</p>
+          ${q.f ? `<p><strong class="label">Formula:</strong> ${q.f}</p>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+    const wrong = mockState.questions.filter((q,i) => mockState.answers[i] !== null && mockState.answers[i] !== q.a).length;
+    const skipped = mockState.questions.filter((q,i) => mockState.answers[i] === null).length;
+    if(!showAll && (wrong + skipped) === 0){
+      area.innerHTML = '<div class="card" style="text-align:center; padding:36px"><h3 style="color:var(--good)">Perfect score! 🎉</h3><p>Every answer correct. Click "Show all questions" to review them anyway.</p></div>';
+    } else {
+      area.innerHTML = `<div class="card" style="margin-bottom:14px"><h3>${showAll ? 'All questions' : 'Wrong + skipped questions'} (${showAll ? mockState.questions.length : (wrong + skipped)} item${(showAll ? mockState.questions.length : (wrong + skipped))!==1?'s':''})</h3></div>${blocks}`;
+    }
+    const tBtn = document.getElementById('mockReviewToggleBtn');
+    if(tBtn) tBtn.textContent = showAll ? 'Show only wrong / skipped' : 'Show all questions (right + wrong)';
+  }
+
+  // wire mock UI
+  const startBtn = document.getElementById('startMockBtn');
+  if(startBtn) startBtn.addEventListener('click', startMock);
+  const submitBtn = document.getElementById('mockSubmitBtn');
+  if(submitBtn) submitBtn.addEventListener('click', () => submitMock(false));
+  const prevBtn = document.getElementById('mockPrevBtn');
+  if(prevBtn) prevBtn.addEventListener('click', () => showMockQuestion(mockState.currentIdx - 1));
+  const nextBtn = document.getElementById('mockNextBtn');
+  if(nextBtn) nextBtn.addEventListener('click', () => showMockQuestion(mockState.currentIdx + 1));
+  const retryBtn = document.getElementById('mockRetryBtn');
+  if(retryBtn) retryBtn.addEventListener('click', () => {
+    document.getElementById('mock-results').style.display = 'none';
+    document.getElementById('mock-landing').style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+  const reviewToggleBtn = document.getElementById('mockReviewToggleBtn');
+  if(reviewToggleBtn){
+    let showAllReview = false;
+    reviewToggleBtn.addEventListener('click', () => {
+      showAllReview = !showAllReview;
+      renderMockReview(showAllReview);
+    });
+  }
+  // keyboard navigation during exam
+  document.addEventListener('keydown', (e) => {
+    if(!mockState || mockState.submitted) return;
+    if(document.getElementById('mock-active').style.display === 'none') return;
+    if(e.key === 'ArrowLeft' && mockState.currentIdx > 0) showMockQuestion(mockState.currentIdx - 1);
+    if(e.key === 'ArrowRight' && mockState.currentIdx < mockState.questions.length - 1) showMockQuestion(mockState.currentIdx + 1);
+    if(/^[a-eA-E]$/.test(e.key)){
+      const i = e.key.toLowerCase().charCodeAt(0) - 97;
+      const q = mockState.questions[mockState.currentIdx];
+      if(q && i < q.o.length){
+        mockState.answers[mockState.currentIdx] = i;
+        showMockQuestion(mockState.currentIdx);
+      }
+    }
+  });
 });
 </script>
 
