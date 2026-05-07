@@ -406,6 +406,21 @@ details.fc .answer strong{color:var(--text)}
 .exam-empty{
   text-align:center; padding:60px 20px; color:var(--muted);
 }
+.exam-q-cancelled{
+  border-color:rgba(248,113,113,.45) !important;
+  background:linear-gradient(180deg, rgba(248,113,113,.05), rgba(248,113,113,.02)) !important;
+}
+.exam-q-cancelled .q-text{
+  color:var(--muted);
+}
+.exam-q-cancelled .q-text::before{
+  content:"📚 BONUS / NOT EXAM-SCOPE  ";
+  color:var(--bad); font-weight:700; font-size:11px; letter-spacing:1px;
+}
+.exam-q[data-cancelled="1"][hidden]{display:none}
+:root.light .exam-q-cancelled{
+  background:linear-gradient(180deg, rgba(248,113,113,.08), rgba(248,113,113,.03)) !important;
+}
 
 .placeholder{
   text-align:center; padding:60px 20px; color:var(--muted);
@@ -3070,7 +3085,9 @@ E[R_p] = 0.50 × 12.5%  +  0.50 × 20%
   <p class="subtitle">Past-final and quiz questions filtered to your 4-chapter scope. <span id="totalCount">…</span> questions across Bonds · Stocks · Options · Risk &amp; Return.</p>
 
   <div class="callout" style="margin-bottom:18px">
-    <strong>How to use:</strong> Filter by chapter using the buttons below. Click "Show answer" on any card to reveal the verified answer + reasoning. Click <strong>Test mode</strong> to hide all answers (and click again to reveal). Each card cites its source filename. <em>Out-of-scope topics — stock indexes (not in your slides), EMH (cancelled), midterm material — are excluded.</em>
+    <strong>How to use:</strong> Filter by chapter using the buttons below. Click "Show answer" on any card to reveal the verified answer + reasoning. <strong>Test mode</strong> hides all answers at once (click again to reveal). <strong>Hide cancelled topics</strong> filters out any question on a cancelled section (Ch 8 §6e EFF%, Ch 8 §8d bankruptcy chapters, Ch 9 §9 EMH) for an exam-focused drill. Cancelled questions, when present, show a red <span class="cancelled-banner" style="font-size:10px;vertical-align:middle">cancelled</span> pill — they're <em>kept</em> in the bank for completeness so anyone wanting full Investment knowledge can still drill them. Each card cites its source filename. <em>(Stock indexes / midterm material were already excluded at mining.)</em>
+    <br><br>
+    <strong>📊 Current bank:</strong> 79 in-scope questions across the 4 chapters; <strong>0 questions are currently in cancelled sections</strong> — they were filtered at mining. The "Hide cancelled" toggle is here as future-proofing.
   </div>
 
   <div class="exam-controls">
@@ -3081,7 +3098,8 @@ E[R_p] = 0.50 × 12.5%  +  0.50 × 20%
       <button class="filter-btn" data-filter="opts">Options <span class="badge" id="cnt-opts"></span></button>
       <button class="filter-btn" data-filter="ch5">Risk &amp; Return <span class="badge" id="cnt-ch5"></span></button>
     </div>
-    <button id="testModeBtn" class="test-mode-toggle">Test mode</button>
+    <button id="hideCancelledBtn" class="test-mode-toggle" title="Hide questions on cancelled topics (showing them is the default — they're marked but not on the exam)" style="margin-left:auto">Hide cancelled topics</button>
+    <button id="testModeBtn" class="test-mode-toggle" style="margin-left:0">Test mode</button>
   </div>
 
   <div id="examQuestions"></div>
@@ -3564,10 +3582,13 @@ window.addEventListener('load', () => {
       }).join('');
       const correctLetter = String.fromCharCode(97 + (q.a||0));
       const formula = q.f ? `<p><strong class="label">Formula:</strong> ${q.f}</p>` : '';
-      return `<div class="exam-q" data-chapter="${q.c}" data-idx="${idx}">
+      const cancelledClass = q.cancelled ? ' exam-q-cancelled' : '';
+      const cancelledBanner = q.cancelled ? `<span class="cancelled-banner" style="font-size:10px;margin:0;vertical-align:middle">cancelled${q.cancelledNote ? ' — ' + q.cancelledNote : ''}</span>` : '';
+      return `<div class="exam-q${cancelledClass}" data-chapter="${q.c}" data-idx="${idx}" ${q.cancelled?'data-cancelled="1"':''}>
         <div class="exam-q-head">
           <span class="chapter-tag ${q.c}">${chapterLabels[q.c]||q.c}</span>
           <span class="q-num">Q${idx+1}</span>
+          ${cancelledBanner}
           <span class="q-source">Source: ${q.src}</span>
         </div>
         <p class="q-text">${q.q}</p>
@@ -3594,11 +3615,16 @@ window.addEventListener('load', () => {
       });
     });
   }
+  let currentFilter = 'all';
+  let hideCancelled = false;
   function applyExamFilter(filter){
+    if(filter) currentFilter = filter;
     document.querySelectorAll('#examQuestions .exam-q').forEach(card => {
-      card.hidden = (filter !== 'all' && card.dataset.chapter !== filter);
+      const chapMatch = (currentFilter === 'all' || card.dataset.chapter === currentFilter);
+      const cancMatch = !(hideCancelled && card.dataset.cancelled === '1');
+      card.hidden = !(chapMatch && cancMatch);
     });
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === currentFilter));
   }
   renderExamBank();
   document.querySelectorAll('.filter-btn').forEach(b => b.addEventListener('click', () => applyExamFilter(b.dataset.filter)));
@@ -3611,6 +3637,15 @@ window.addEventListener('load', () => {
         card.classList.toggle('revealed', showAll);
       });
       tmBtn.textContent = tmBtn.classList.contains('active') ? 'Reveal all answers' : 'Test mode';
+    });
+  }
+  const hcBtn = document.getElementById('hideCancelledBtn');
+  if(hcBtn){
+    hcBtn.addEventListener('click', () => {
+      hideCancelled = !hideCancelled;
+      hcBtn.classList.toggle('active', hideCancelled);
+      hcBtn.textContent = hideCancelled ? 'Show cancelled topics' : 'Hide cancelled topics';
+      applyExamFilter();
     });
   }
 });
