@@ -624,6 +624,139 @@ footer{
   max-width:1200px; margin:0 auto; padding:20px 22px;
   color:var(--muted); font-size:13px; text-align:center;
 }
+
+/* ============================================================ */
+/* Mobile responsive                                            */
+/* ============================================================ */
+@media (max-width: 900px){
+  .nav{padding:12px 14px; gap:10px}
+  .nav h1{font-size:17px}
+  .nav h1 span{font-size:14px}
+  .nav .grow{display:none}
+  .tabs{
+    order:3; width:100%;
+    overflow-x:auto; flex-wrap:nowrap;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+    padding-bottom:4px;
+  }
+  .tabs::-webkit-scrollbar{height:4px}
+  .tabs::-webkit-scrollbar-thumb{background:var(--line); border-radius:2px}
+  .tab-btn{padding:7px 12px; font-size:12px; flex-shrink:0; white-space:nowrap}
+  .theme-toggle{width:34px; height:34px; font-size:14px}
+}
+
+@media (max-width: 768px){
+  main{padding:16px 12px 60px}
+  .tab-title{font-size:22px; margin:4px 0 2px}
+  .subtitle{font-size:13px; margin-bottom:14px}
+
+  .card{padding:14px 16px; margin:12px 0}
+  .card h3{font-size:18px}
+  .card h4{font-size:15px; margin:14px 0 6px}
+  .card p, .card li{font-size:14px}
+
+  /* Tables — horizontal scroll wrap to prevent overflow */
+  .tbl{display:block; overflow-x:auto; white-space:nowrap; -webkit-overflow-scrolling:touch; max-width:100%}
+  .tbl thead, .tbl tbody, .tbl tr{display:table; width:100%; table-layout:fixed}
+  .tbl th, .tbl td{font-size:12px; padding:7px 9px; white-space:normal}
+
+  /* Formulas legend grid: stack vertically */
+  .formula-box{padding:12px 14px}
+  .formula-box .legend{grid-template-columns:1fr; gap:6px 0; font-size:13px}
+  .formula-box .legend code{margin-bottom:0; display:inline-block; margin-right:8px}
+
+  /* Mini-stats: stack 3-col into 1-col on narrow */
+  .grid-3{grid-template-columns:1fr; gap:10px}
+  .mini-stat .value{font-size:18px}
+
+  /* Pricer (interactive widget) controls — 1 column on phones */
+  .controls{grid-template-columns:1fr; gap:10px}
+  .pricer{padding:14px 16px}
+  .pricer .result .price{font-size:24px}
+
+  /* Examples / step blocks — smaller code text */
+  .example{padding:10px 14px}
+  .example h5{font-size:13px}
+  .example .step{font-size:11.5px; padding:8px 10px; word-break:break-word}
+
+  /* Flashcards */
+  details.fc{padding:11px 14px}
+  details.fc summary{font-size:14px}
+
+  /* Charts */
+  .chart-wrap{padding:10px}
+  .chart-caption{font-size:12px}
+
+  /* Cancelled markers: smaller pill */
+  .cancelled-banner{font-size:10px; padding:4px 10px}
+  .cancelled-card::after{font-size:10px; padding:3px 8px}
+
+  /* === Practice Exam tab === */
+  .exam-controls{flex-direction:column; align-items:stretch; padding:10px 12px; gap:10px}
+  .filter-buttons{justify-content:center; width:100%}
+  .filter-btn{padding:6px 11px; font-size:12px}
+  .test-mode-toggle{margin-left:0 !important; width:100%; text-align:center; padding:8px 14px}
+  .exam-q{padding:14px 16px}
+  .exam-q-head{font-size:11px; gap:8px}
+  .exam-q .q-text{font-size:14px}
+  .exam-q .q-options li{padding:5px 8px 5px 28px; font-size:13px}
+  .exam-q .q-options li::before{left:6px; top:5px}
+  .answer-toggle{font-size:12px; padding:8px 12px}
+  .answer-body{font-size:13px}
+  .answer-body strong.label{min-width:70px; font-size:11px}
+  .q-source{font-size:11px}
+
+  /* === Actual Exam Test tab === */
+  .mock-header{
+    position:sticky; top:54px;
+    padding:10px 14px; gap:10px; flex-wrap:wrap;
+  }
+  .mock-progress{font-size:14px; flex:1 0 auto; order:1}
+  .mock-timer-wrap{padding:4px 12px; order:2; margin-left:auto}
+  .mock-timer{font-size:18px; min-width:64px}
+  .mock-submit-btn{padding:7px 14px; font-size:12px; order:3; flex:1 0 auto}
+
+  #mockQuestionWrap .q-options li{padding:12px 14px 12px 44px; font-size:14px; margin:6px 0}
+  #mockQuestionWrap .q-options li::before{left:8px; width:26px; height:26px; font-size:12px}
+  .mock-nav{flex-direction:column; gap:10px}
+  .mock-nav-btn{width:100%; padding:10px 14px}
+  .mock-question-grid{justify-content:flex-start; max-height:160px; overflow-y:auto; padding:6px 0}
+  .mock-grid-cell{width:30px; height:30px; font-size:11px}
+
+  .mock-score-card{padding:24px 16px}
+  .mock-score-big{font-size:52px}
+  .mock-score-pct{font-size:18px}
+  .mock-score-meta{font-size:12px}
+  .mock-action-btn{font-size:13px; padding:9px 16px; width:100%}
+  .mock-review-q{padding:14px 16px}
+  .mock-review-q .q-text{font-size:13px}
+  .mock-review-q .q-options li{padding:6px 12px 6px 30px; font-size:12.5px}
+  .mock-review-q .review-explanation{font-size:12px}
+  .mock-review-q .review-explanation strong.label{min-width:70px; font-size:10px}
+
+  /* Footer */
+  footer{padding:18px 14px 30px}
+  footer > div:first-child{font-size:15px !important}
+
+  /* Cancelled-section banner inline pill */
+  .callout{padding:10px 14px; font-size:13px}
+}
+
+@media (max-width: 480px){
+  .tab-btn{padding:6px 10px; font-size:11px}
+  .nav h1{font-size:14px}
+  .nav h1 span{display:none}
+  .tab-title{font-size:19px}
+  .mock-score-big{font-size:42px}
+  .mock-timer{font-size:16px}
+  .mock-progress{font-size:13px}
+  .mock-grid-cell{width:26px; height:26px; font-size:10px}
+  .card{padding:12px 14px}
+  .formula-box{font-size:13px}
+  .pricer .result .price{font-size:20px}
+  .filter-btn .badge{font-size:10px; padding:0 5px}
+}
 </style>
 </head>
 <body>
