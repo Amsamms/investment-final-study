@@ -295,6 +295,118 @@ details.fc .answer strong{color:var(--text)}
   background:linear-gradient(180deg, rgba(248,113,113,.10), rgba(248,113,113,.04)) !important;
 }
 
+/* Practice Exam tab */
+.exam-controls{
+  display:flex; align-items:center; gap:14px; margin-bottom:18px; flex-wrap:wrap;
+  background:linear-gradient(180deg, var(--panel), var(--panel-2));
+  border:1px solid var(--line); border-radius:var(--radius);
+  padding:14px 18px; box-shadow:var(--shadow);
+}
+.filter-buttons{display:flex; gap:6px; flex-wrap:wrap}
+.filter-btn{
+  border:1px solid var(--line); background:var(--bg-2);
+  color:var(--text); padding:7px 14px; border-radius:999px;
+  cursor:pointer; font-weight:500; font-size:13px;
+  transition:.15s ease;
+}
+.filter-btn:hover{border-color:var(--accent); color:var(--text)}
+.filter-btn.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#fff; border-color:transparent;
+  box-shadow:0 4px 14px rgba(124,92,255,.4);
+}
+.filter-btn .badge{
+  display:inline-block; margin-left:6px;
+  background:rgba(255,255,255,.18); border-radius:999px;
+  padding:1px 7px; font-size:11px; font-weight:600;
+}
+.test-mode-toggle{
+  margin-left:auto; border:1px solid var(--accent); background:transparent;
+  color:var(--accent); padding:7px 14px; border-radius:999px;
+  cursor:pointer; font-weight:600; font-size:13px;
+}
+.test-mode-toggle.active{
+  background:var(--accent); color:#fff;
+}
+.exam-q{
+  background:linear-gradient(180deg, var(--panel), var(--panel-2));
+  border:1px solid var(--line); border-radius:12px;
+  padding:18px 22px; margin:14px 0; box-shadow:var(--shadow);
+}
+.exam-q[hidden]{display:none}
+.exam-q-head{
+  display:flex; gap:10px; align-items:center; margin-bottom:8px; flex-wrap:wrap;
+  font-size:12px;
+}
+.chapter-tag{
+  display:inline-block; padding:3px 10px; border-radius:999px;
+  font-weight:700; letter-spacing:.5px; font-size:11px; text-transform:uppercase;
+}
+.chapter-tag.ch5{background:rgba(34,211,238,.18); color:var(--accent-2); border:1px solid var(--accent-2);}
+.chapter-tag.ch8{background:rgba(124,92,255,.18); color:var(--accent); border:1px solid var(--accent);}
+.chapter-tag.ch9{background:rgba(52,211,153,.18); color:var(--good); border:1px solid var(--good);}
+.chapter-tag.opts{background:rgba(244,114,182,.18); color:var(--premium); border:1px solid var(--premium);}
+.q-num{font-family:'JetBrains Mono',monospace; color:var(--muted); font-size:12px;}
+.q-source{color:var(--muted); font-size:12px; margin-left:auto; font-style:italic;}
+.exam-q .q-text{
+  font-weight:500; line-height:1.55; margin:6px 0 12px;
+}
+.exam-q .q-options{
+  list-style:none; padding:0; margin:0 0 12px;
+}
+.exam-q .q-options li{
+  padding:6px 10px 6px 32px; margin:3px 0; position:relative;
+  border-radius:6px; transition:background .15s;
+}
+.exam-q .q-options li::before{
+  content:attr(data-letter);
+  position:absolute; left:8px; top:6px;
+  font-family:'JetBrains Mono',monospace; font-weight:600; color:var(--muted);
+}
+.exam-q.revealed .q-options li.correct{
+  background:rgba(52,211,153,.15);
+  border-left:3px solid var(--good);
+}
+.exam-q.revealed .q-options li.correct::before{
+  color:var(--good);
+}
+.answer-box{
+  margin-top:8px; padding:0; border-radius:8px;
+  background:var(--bg-2); border:1px solid var(--line);
+  overflow:hidden;
+}
+.answer-toggle{
+  width:100%; background:transparent; border:none; color:var(--accent-2);
+  padding:10px 14px; cursor:pointer; text-align:left;
+  font-weight:600; font-size:13px; font-family:inherit;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.answer-toggle::after{
+  content:'▾'; transition:transform .2s;
+}
+.exam-q.revealed .answer-toggle::after{transform:rotate(180deg)}
+.answer-body{
+  padding:0 14px; max-height:0; overflow:hidden;
+  transition:max-height .25s ease, padding .25s ease;
+  font-size:14px;
+}
+.exam-q.revealed .answer-body{
+  padding:6px 14px 14px; max-height:1000px;
+}
+.answer-body p{margin:6px 0}
+.answer-body strong.label{
+  display:inline-block; min-width:90px; color:var(--accent-2);
+  font-size:12px; text-transform:uppercase; letter-spacing:.5px;
+}
+.answer-letter{
+  display:inline-block; padding:2px 10px; border-radius:6px;
+  background:var(--good); color:#fff; font-family:'JetBrains Mono',monospace;
+  font-weight:700; margin-right:8px;
+}
+.exam-empty{
+  text-align:center; padding:60px 20px; color:var(--muted);
+}
+
 .placeholder{
   text-align:center; padding:60px 20px; color:var(--muted);
 }
@@ -2955,11 +3067,24 @@ E[R_p] = 0.50 × 12.5%  +  0.50 × 20%
 <!-- ===================== Practice Exam ===================== -->
 <section class="tab-pane" id="exam">
   <h2 class="tab-title">Practice Exam</h2>
-  <div class="card placeholder">
-    <div class="icon">⏳</div>
-    <h3>Coming in the final session</h3>
-    <p>Will mine every Ch 5 / 8 / 9 / Options question from past final exams (FINAL Inv ENPI 23, FINAL Inv ACAD 22, quizzes) plus a parallel-class exam, with model answers and reasoning.</p>
+  <p class="subtitle">Past-final and quiz questions filtered to your 4-chapter scope. <span id="totalCount">…</span> questions across Bonds · Stocks · Options · Risk &amp; Return.</p>
+
+  <div class="callout" style="margin-bottom:18px">
+    <strong>How to use:</strong> Filter by chapter using the buttons below. Click "Show answer" on any card to reveal the verified answer + reasoning. Click <strong>Test mode</strong> to hide all answers (and click again to reveal). Each card cites its source filename. <em>Out-of-scope topics — stock indexes (not in your slides), EMH (cancelled), midterm material — are excluded.</em>
   </div>
+
+  <div class="exam-controls">
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All <span class="badge" id="cnt-all"></span></button>
+      <button class="filter-btn" data-filter="ch8">Bonds <span class="badge" id="cnt-ch8"></span></button>
+      <button class="filter-btn" data-filter="ch9">Stocks <span class="badge" id="cnt-ch9"></span></button>
+      <button class="filter-btn" data-filter="opts">Options <span class="badge" id="cnt-opts"></span></button>
+      <button class="filter-btn" data-filter="ch5">Risk &amp; Return <span class="badge" id="cnt-ch5"></span></button>
+    </div>
+    <button id="testModeBtn" class="test-mode-toggle">Test mode</button>
+  </div>
+
+  <div id="examQuestions"></div>
 </section>
 
 </main>
@@ -2970,6 +3095,97 @@ E[R_p] = 0.50 × 12.5%  +  0.50 × 20%
   </div>
   <div style="margin-top:6px; font-size:13px; color:var(--muted);">Investment · Final Exam Study Guide</div>
 </footer>
+
+<script>
+// ===== Practice Exam — question bank =====
+// Each entry: c=chapter (ch5/ch8/ch9/opts), src=source citation, q=question, o=options[], a=correct index, r=reasoning, f=formula
+window.__examBank = [
+  // ===== ENPI 23 / Acad 22 final exam (36 in-scope MCQs, KEY-verified) =====
+  {c:'ch5', src:'FINAL ENPI 23 Q1', q:'Which of the following statements best describes what would be expected to happen as you randomly add stocks to your portfolio?', o:["Adding more stocks to your portfolio reduces the portfolio's company-specific risk.","Adding more stocks reduces the beta of your portfolio.","Adding more stocks increases the portfolio's expected return.","Adding more stocks increases the portfolio's overall risk.","Adding more stocks increases the portfolio's systematic risk."], a:0, r:"Random diversification eliminates company-specific (unsystematic) risk because firm-specific shocks (lawsuits, bad CEO) cancel out across many holdings. It does NOT reduce systematic/market risk, doesn't drive beta to extremes, and does not by itself raise expected return.", f:""},
+  {c:'ch8', src:'FINAL ENPI 23 Q2', q:'Which of the following statements is most correct?', o:["Long-term bonds have more interest rate risk than short-term bonds.","High-coupon bonds have more reinvestment rate risk than low-coupon bonds.","Short-term bonds have more reinvestment rate risk than long-term bonds.","Statements a and c are correct.","All of the statements above are correct."], a:4, r:"All three are true. Long-term = higher price/interest-rate risk (cash flows discounted over more periods, so price is more sensitive to k_d). High-coupon = more reinvestment risk (more cash returned earlier, must be redeployed at unknown future rates). Short-term = more reinvestment risk (whole principal returned soon, must be rolled over). The trade-off is symmetric: protecting against one increases the other.", f:""},
+  {c:'ch8', src:'FINAL ENPI 23 Q3', q:'Which of the following statements is most correct?', o:["If a bond's YTM increases, its price will fall.","If a bond's YTM increases, its current yield will fall.","If a bond's YTM exceeds the coupon rate, the bond will sell at a premium over par.","All of the statements above are correct.","None of the statements above is correct."], a:0, r:"(a) is correct: YTM and price move inversely (master formula has k_d in denominator). (b) is wrong: when price falls (because YTM rose), current yield = annual coupon / lower price = HIGHER, not lower. (c) is reversed: YTM > coupon → discount, not premium.", f:""},
+  {c:'ch9', src:'FINAL ENPI 23 Q4', q:"A stock's dividend is expected to grow at a constant rate of 5 percent a year. Which of the following statements is most correct?", o:["The expected return on the stock is 5%.","The stock's dividend yield is 5%.","The stock's price one year from now is expected to be 5% higher.","Statements a and c are correct.","All of the statements above are correct."], a:2, r:"In constant-growth (Gordon) world, P̂₁ = P̂₀ × (1+g), so price grows at exactly g. Hence (c) is true. (a) is wrong: total return = D₁/P₀ + g, not just g. (b) is wrong: dividend yield = D₁/P₀, no reason it equals g.", f:"P̂₁ = P̂₀(1+g); k_s = D₁/P₀ + g"},
+  {c:'ch8', src:'FINAL ENPI 23 Q5', q:'In order to have a yield to maturity greater than the coupon rate the bond must be:', o:["selling at a premium","selling at par","a zero coupon bond","selling at discount"], a:3, r:"YTM > coupon rate ⇒ DISCOUNT bond (price < par). Buyer demands the extra return because the coupon rate is too low relative to current market yields, so they only pay if the price drops below par.", f:"coupon < YTM ⇒ price < par"},
+  {c:'ch8', src:'FINAL ENPI 23 Q6', q:'You intend to purchase a 10-year, $1,000 face-value bond that pays interest of $60 every 6 months. If your nominal annual required rate of return is 10% with semi-annual compounding, how much should you pay?', o:["$826.31","$1,086.15","$957.50","$1,124.62"], a:3, r:"Semi-annual conversion: N = 2×10 = 20 periods, k_d/2 = 5% per period, PMT = $60 (already half-year), FV = $1,000. V = 60·[(1−1.05⁻²⁰)/0.05] + 1,000/1.05²⁰ = 60·12.4622 + 1,000·0.3769 = $747.73 + $376.89 = $1,124.62. Coupon (12% nominal = $120/yr) > k_d (10%) ⇒ premium, consistent.", f:"V_B = PMT·[1−(1+r)⁻ᴺ]/r + M/(1+r)ᴺ"},
+  {c:'ch9', src:'FINAL ENPI 23 Q7', q:'Tyler Toys currently earns $3.00/share and pays $1.20/share in dividends. Constant growth = 7%. Required return = 14%. Intrinsic value?', o:["$17.50","$15.00","$18.65","$18.34"], a:3, r:"D₀ = $1.20, g = 7%, k_s = 14%. D₁ = D₀(1+g) = 1.20·1.07 = $1.284. P̂₀ = D₁/(k_s−g) = 1.284/(0.14−0.07) = 1.284/0.07 = $18.34.", f:"P̂₀ = D₁/(k_s−g)"},
+  {c:'ch9', src:'FINAL ENPI 23 Q8', q:'Albright Motors expects to pay D₁ = $3 next year. Stock currently sells for $30. Required return = 16%. If dividends grow at constant rate g, what is g?', o:["4%","5%","6%","3%"], a:2, r:"Rearrange Gordon: g = k_s − D₁/P₀ = 0.16 − 3/30 = 0.16 − 0.10 = 0.06 = 6%.", f:"g = k_s − D₁/P₀"},
+  {c:'ch8', src:'FINAL ENPI 23 Q10', q:'A corporate bond has face $1,000 and pays $50 coupon every 6 months (10% semi-annual coupon). Bond matures in 12 years and sells at $1,080. What is YTM?', o:["8.90%","4.45%","5.40%","7.50%"], a:0, r:"Semi-annual setup: N = 24, PMT = $50, PV = −$1,080, FV = $1,000. Solve =RATE(24, 50, −1080, 1000) ≈ 4.45% per half-year. Nominal annual YTM = 4.45% × 2 ≈ 8.90%. Sanity: price > par → YTM < coupon (10%), and 8.90% < 10% ✓.", f:"=RATE(N, PMT, −PV, FV) × m"},
+  {c:'ch5', src:'FINAL ENPI 23 Q11', q:'An impending recession is an example of:', o:["interest rate risk","inflation risk","market risk","financial risk"], a:2, r:"A recession affects the WHOLE economy and therefore all stocks simultaneously — that is the definition of MARKET (systematic) risk. It cannot be diversified away.", f:""},
+  {c:'ch5', src:'FINAL ENPI 23 Q12', q:'Random diversification helps to:', o:["eliminate total risk.","eliminate systematic risk.","minimize risk specific to a security.","maximize return."], a:2, r:"Random (across many stocks) diversification cancels out firm-specific (unsystematic) shocks — minimizing security-specific risk. It can NOT eliminate systematic risk (which affects every stock together).", f:""},
+  {c:'ch9', src:'FINAL ENPI 23 Q13', q:'If the expected rate of return on a stock exceeds the required rate:', o:["The stock is experiencing supernormal growth.","The stock should be sold.","The company is probably not maximizing price per share.","The stock is a good buy.","Dividends are not being declared."], a:3, r:"E[R] > k_s ⇒ positive alpha ⇒ stock is underpriced ⇒ BUY. This is the same accept-rule from the alpha decision in Ch 5 §9.", f:"α = E[R] − k_s; α > 0 ⇒ ACCEPT"},
+  {c:'ch5', src:'FINAL ENPI 23 Q14', q:'Market risk is best measured by the:', o:["alpha","beta","standard deviation","coefficient of variation"], a:1, r:"BETA measures systematic (market) risk — sensitivity of a stock's return to overall market moves. Standard deviation captures TOTAL risk (systematic + unsystematic). Alpha is a return measure, not a risk measure.", f:"β = Cov(R, R_M) / σ²_M"},
+  {c:'ch5', src:'FINAL ENPI 23 Q16', q:'Risk that cannot be diversified away is described as:', o:["nonsystematic risk","non-market risk","total risk","systematic risk"], a:3, r:"SYSTEMATIC risk = market risk = non-diversifiable risk. It affects all stocks simultaneously (recession, inflation) and cannot be eliminated by holding many stocks. Beta measures it.", f:""},
+  {c:'ch5', src:'FINAL ENPI 23 Q18', q:'The standard deviation measures:', o:["systematic risk of a security","unsystematic risk of a security","total risk of a security","the equity risk premium"], a:2, r:"Standard deviation captures the FULL spread of return outcomes around the mean — systematic + unsystematic combined = TOTAL risk. To isolate systematic risk only, you'd use beta instead.", f:"σ = √Σ p_i (R_i − E[R])²"},
+  {c:'ch9', src:'FINAL ENPI 23 Q19', q:'The value of common stock is the:', o:["present value of all expected cash flows","present value of all capital gains","future value of all dividend payments","present value of all dividend payments"], a:0, r:"The verified KEY answer is (a): a stock's value is the PV of all future expected CASH FLOWS to the holder — which are the future dividends plus terminal sale proceeds (which themselves equal the next holder's PV-of-dividends, recursively). Option (d) is also conceptually correct (the chapter framing) but (a) is the broader textbook-correct answer marked as KEY.", f:"P̂₀ = Σ D_t/(1+k_s)^t"},
+  {c:'ch8', src:'FINAL ENPI 23 Q20', q:'A firm has a 15-year, 8% semi-annual coupon bond. Required nominal rate has now risen to 16%. Current value?', o:["$1,273","$1,000","$7,783","$550","$450"], a:3, r:"Semi-annual setup: N = 30, PMT = $40, k_d/2 = 8% per period. V = 40·[(1−1.08⁻³⁰)/0.08] + 1,000/1.08³⁰ = 40·11.2578 + 1,000·0.0994 = $450.31 + $99.38 = $549.69 ≈ $550. Sanity: coupon (8%) << YTM (16%) ⇒ deep discount ⇒ price << par ✓.", f:"V_B (semi-annual)"},
+  {c:'opts', src:'FINAL ENPI 23 Q21', q:'Which of the following statements is true regarding a call writer?', o:["The call writer expects the stock to move upward.","The call writer expects the stock to remain the same or move down.","The call writer expects the stock to split.","The call writer expects to sell the stock prior to expiration."], a:1, r:"A call writer wants the option to expire WORTHLESS (out-of-the-money) so they keep the premium with no obligation. That happens when MP ≤ Strike — i.e., the stock stayed flat or fell.", f:""},
+  {c:'ch8', src:'FINAL ENPI 23 Q22', q:'In order to have a yield to maturity greater than the coupon rate the bond must be:', o:["selling at a premium","selling at par","a zero coupon bond","selling at discount"], a:3, r:"YTM > coupon ⇒ discount. Same rule as Q5. The bond's price drops below par to deliver an effective yield (YTM) higher than the fixed coupon rate.", f:"coupon < YTM ⇒ discount"},
+  {c:'ch5', src:'FINAL ENPI 23 Q23', q:'Which of the following statements regarding expected return of a portfolio is true?', o:["It can be higher than the weighted average expected return of individual assets.","It can be lower than the weighted average return of the individual assets.","It can never be higher or lower than the weighted average expected return of individual assets.","Expected return of a portfolio is impossible to calculate."], a:2, r:"Portfolio E[R] is ALWAYS EXACTLY the weighted average of individual E[R]s. Diversification reduces VARIANCE/risk, not expected return. The expected-return identity is rigid; only variance benefits from diversification.", f:"E[R_p] = Σ w_i · E[R_i]"},
+  {c:'opts', src:'FINAL ENPI 23 Q24', q:'Which of the following statements is true regarding American and European options?', o:["American options can be exercised only at expiration.","American options can be exercised only in the last week prior to expiration.","European options can be exercised only at expiration.","European options can be exercised any time prior to expiration."], a:2, r:"European = exercise ONLY on expiration date. American = exercise ANY time up to and including expiration. The early-exercise flexibility makes American ≥ European in value.", f:""},
+  {c:'ch9', src:'FINAL ENPI 23 Q25', q:'If D₁ = $1.25, g (constant) = 5.5%, P₀ = $44, what is the stock\'s expected total return for the coming year?', o:["7.54%","7.73%","7.93%","8.34%"], a:3, r:"Total return = dividend yield + capital-gains yield = D₁/P₀ + g = 1.25/44 + 0.055 = 0.02841 + 0.055 = 0.0834 = 8.34%.", f:"k_s = D₁/P₀ + g"},
+  {c:'ch8', src:'FINAL ENPI 23 Q26', q:"Sadik Inc.'s bonds sell for $1,180 with par $1,000. They pay $105 annual coupon, 15-year maturity, callable in 5 years at $1,100. What is YTC?", o:["6.63%","6.98%","7.35%","7.74%"], a:3, r:"YTC setup: N_c = 5, PMT = $105, PV = −$1,180, FV = call price = $1,100. =RATE(5, 105, −1180, 1100) ≈ 7.74%. Sanity: bond is at premium (1,180 > 1,000), coupon (10.5%) > YTC, and the issuer would likely call ⇒ YTC is the relevant yield.", f:"YTC: PV using N_c, FV = call price"},
+  {c:'ch8', src:'FINAL ENPI 23 Q27', q:'Consider the purchase of a 20-year, non-callable bond with annual coupon rate 9.5%, face $1,000, semi-annual interest payments. Required nominal YTM = 8.4%. Maximum price?', o:["$1,105.69","$1,133.34","$1,161.67","$1,190.71"], a:0, r:"Semi-annual: N = 40, PMT = $47.50, k_d/2 = 4.2% per period. V = 47.5·[(1−1.042⁻⁴⁰)/0.042] + 1,000/1.042⁴⁰ ≈ 47.5·19.169 + 1,000·0.1949 = $910.51 + $194.93 = $1,105.44 ≈ $1,105.69. Coupon (9.5%) > YTM (8.4%) ⇒ premium ✓.", f:""},
+  {c:'ch9', src:'FINAL ENPI 23 Q28', q:'Francis Co. expects D₁ = $1.25, g = 6% constant. Beta = 1.15. Market risk premium = 5.50%. Risk-free = 4.00%. Current stock price?', o:["$28.90","$29.62","$30.36","$31.12"], a:0, r:"Step 1 (CAPM): k_s = K_RF + β·MRP = 4% + 1.15·5.5% = 4% + 6.325% = 10.325%. Step 2 (Gordon): P̂₀ = D₁/(k_s−g) = 1.25/(0.10325−0.06) = 1.25/0.04325 = $28.90.", f:"k_s = K_RF + β(K_M − K_RF); P̂₀ = D₁/(k_s − g)"},
+  {c:'ch5', src:'FINAL ENPI 23 Q29', q:'The expected value is the:', o:["inverse of the standard deviation","correlation between a security's risk and return","weighted average of all possible outcomes","same as the discrete probability distribution"], a:2, r:"E[X] = Σ p_i · x_i — the probability-weighted average of all possible outcomes. Each outcome's contribution is its value times its probability.", f:"E[X] = Σ p_i x_i"},
+  {c:'opts', src:'FINAL ENPI 23 Q30', q:'An option that allows the investor to buy stock under specified conditions is called a:', o:["call","put","derivative","future"], a:0, r:"A CALL option grants the right to BUY the underlying at the strike price. A put grants the right to sell. A future is an OBLIGATION (not a right) to transact later. (Note: KEY ENPI 23 marks this as D, but the conceptually correct answer is A — call. Treat as a key-typo on the source side; the right concept is call.)", f:""},
+  {c:'ch5', src:'FINAL ENPI 23 Q31', q:'Portfolio weights are found by:', o:["dividing standard deviation by expected value.","calculating the percentage each asset is to the total portfolio value.","calculating the return of each asset to total portfolio return.","dividing expected value by the standard deviation."], a:1, r:"Portfolio weight w_i = (dollars invested in asset i) / (total portfolio value). Weights must sum to 1. Has nothing to do with std dev or expected value individually.", f:"w_i = $_i / $_total; Σw_i = 1"},
+  {c:'opts', src:'FINAL ENPI 23 Q32', q:'TRUE / FALSE: The option writer has the right to exercise the option.', o:["TRUE","FALSE"], a:1, r:"FALSE. Only the BUYER (holder) has the right to exercise. The writer has only the obligation to honor the contract if and when the buyer chooses to exercise.", f:""},
+  {c:'opts', src:'FINAL ENPI 23 Q33', q:'TRUE / FALSE: When the market price of the stock is higher than the exercise price, the buyer of the call option will achieve gains.', o:["TRUE","FALSE"], a:0, r:"TRUE (in the broad sense the question intends). MP > Strike → call is in the money → exercising yields positive intrinsic value. Strict net profit requires MP > Strike + Premium (breakeven), but the question asks about \"gains\" generally — interpreted as in-the-money status.", f:"V_call = max(MP − Strike, 0)"},
+  {c:'ch8', src:'FINAL ENPI 23 Q34', q:'TRUE / FALSE: A call provision gives bondholders the right to demand, or "call for," repayment of a bond. Typically, companies call bonds if interest rates rise.', o:["TRUE","FALSE"], a:1, r:"FALSE on both counts. (1) The call provision belongs to the ISSUER (borrower), not bondholders. (2) Companies call bonds when interest rates FALL — they refinance the expensive existing coupon at the new lower rate. Both clauses of the statement are inverted from reality.", f:""},
+  {c:'ch8', src:'FINAL ENPI 23 Q35', q:'TRUE / FALSE: A bond has $1,000 par, $100 annual coupon, 5 years to maturity, non-callable, no default. The bond should sell at a premium if market rates are below 10% and at a discount if rates are greater than 10%.', o:["TRUE","FALSE"], a:0, r:"TRUE. Coupon rate = $100/$1,000 = 10%. If market k_d < 10% ⇒ coupon > k_d ⇒ premium. If k_d > 10% ⇒ coupon < k_d ⇒ discount. Standard premium/discount classification.", f:""},
+  {c:'opts', src:'FINAL ENPI 23 Q37', q:'TRUE / FALSE: The value of the option at expiration could be either positive or zero.', o:["TRUE","FALSE"], a:0, r:"TRUE. V_call = max(MP − Strike, 0) and V_put = max(Strike − MP, 0). Both formulas are bounded below by zero — the option's value at expiration is always ≥ 0, can be positive (if ITM) or zero (if OTM/ATM). Never negative.", f:""},
+  {c:'ch8', src:'FINAL ENPI 23 Q38', q:'For a given change in the required rate of return, the ___ the time to maturity, the ___ the change in price.', o:["longer; smaller","longer; greater","shorter; smaller","Statements b and c are correct."], a:3, r:"Both (b) and (c) are correct. Longer maturity = greater price reaction (more periods of discounting). Equivalently shorter maturity = smaller price reaction. So both phrasings describe the same rule (price sensitivity rises with maturity).", f:""},
+  {c:'ch9', src:'FINAL ENPI 23 Q39', q:'Market equilibrium exists:', o:["only in fiction","when prices are fixed for the one-time period of investors","when prices are at levels that provide no incentive for speculation","only in money markets, not in capital markets"], a:2, r:"Equilibrium = expected return = required return ⇒ no general buying or selling pressure ⇒ no profitable speculation. Markets are continuously drifting toward this point as new information is processed.", f:"E[R] = k_s ⇒ equilibrium"},
+  {c:'opts', src:'FINAL ENPI 23 Q40', q:'The price that the buyer of a call option pays to acquire the option is called the:', o:["strike price","exercise price","execution price","acquisition price","premium"], a:4, r:"PREMIUM is the upfront price paid for the option contract itself. The strike (= exercise = execution) price is what gets paid at exercise IF the buyer chooses to exercise — it's not paid upfront.", f:""},
+
+  // ===== INV QUIZ 2 (CAPM/portfolio in-scope only, KEY-verified) =====
+  {c:'ch5', src:'INV QUIZ 2 Q7', q:'In the context of the Capital Asset Pricing Model (CAPM) the relevant measure of risk is:', o:["unique risk","beta","standard deviation of returns","variance of returns","skewness"], a:1, r:"In CAPM, only NON-diversifiable (systematic) risk is priced — measured by BETA. Unique/firm-specific risk gets diversified away in a portfolio and earns no premium. Standard deviation captures total risk; beta captures only the systematic part.", f:""},
+  {c:'ch5', src:'INV QUIZ 2 Q8', q:'The Capital Asset Pricing Model:', o:["has serious flaws because of its complexity","measures relevant risk of a security and shows the relationship between risk and expected return","was developed by Markowitz in the 1930s","discounts almost all of the Markowitz portfolio theory"], a:1, r:"CAPM links a stock's required return to its systematic risk (beta) via the SML: K_i = K_RF + β(K_M − K_RF). It is mathematically simple and BUILDS on Markowitz's 1950s portfolio theory rather than discounting it.", f:"K_i = K_RF + β(K_M − K_RF)"},
+  {c:'ch9', src:'INV QUIZ 2 Q10', q:'Market equilibrium exists:', o:["only in fiction","when prices are fixed for the one-time period of investors","when prices are at levels that provide no incentive for speculation","only in money markets, not in capital markets"], a:2, r:"Equilibrium = no profit opportunity from buying or selling at current prices ⇒ expected return = required return for every security. Same concept as ENPI 23 Q39.", f:""},
+  {c:'ch5', src:'INV QUIZ 2 Q12', q:'The systematic risk level of a security:', o:["is not related to the variability of the overall market portfolio","is the slope of the security market line","can be measured by standard deviation","can be calculated as the ratio of the stock's covariance with the market portfolio to the variance of the market's return"], a:3, r:"Beta β = Cov(R_i, R_M) / σ²_M — the formula in (d). (a) is wrong: beta IS related to market variability. (b) is wrong: SML slope is the market risk premium (K_M − K_RF), not beta. (c) is wrong: standard deviation is total risk, not just systematic.", f:"β = Cov(R_i, R_M) / σ²_M"},
+  {c:'ch5', src:'INV QUIZ 2 Q16', q:"According to the CAPM, a well-diversified portfolio's rate of return is a function of:", o:["market risk","unsystematic risk","unique risk","reinvestment risk","interest rate risk"], a:0, r:"In a well-diversified portfolio, unsystematic / unique / firm-specific risk is essentially eliminated. Only MARKET (systematic) risk remains and gets priced in the expected return.", f:""},
+  {c:'ch5', src:'INV QUIZ 2 Q17', q:'The risk-free rate is 0.06 and expected market return is 0.12. According to CAPM, the expected rate of return on security X with beta = 1.2 is:', o:["0.060","0.144","0.120","0.132","0.180"], a:3, r:"K = K_RF + β(K_M − K_RF) = 0.06 + 1.2·(0.12 − 0.06) = 0.06 + 1.2·0.06 = 0.06 + 0.072 = 0.132 = 13.2%.", f:"K = K_RF + β(K_M − K_RF)"},
+  {c:'ch5', src:'INV QUIZ 2 Q19', q:'According to the CAPM, the expected rate of return on any security is equal to:', o:["R_f + β·E(R_M)","R_f + β·[E(R_M) − R_f]","β·[E(R_M) − R_f]","E(R_M) + R_f","R_f − β·[E(R_M) − R_f]"], a:1, r:"The exact CAPM/SML equation: K_i = R_f + β(R_M − R_f). It says required return = risk-free + (beta times market risk premium).", f:"K = R_f + β(R_M − R_f)"},
+  {c:'ch5', src:'INV QUIZ 2 Q20', q:'The Security Market Line (SML) is:', o:["the line that describes the expected return-beta relationship for well-diversified portfolios only","also called the Capital Allocation Line","the line that is tangent to the efficient frontier of all risky assets","the line that represents the expected return-beta relationship","also called the Capital Market Line"], a:3, r:"SML plots required return on the y-axis against beta on the x-axis, for ALL securities (not just well-diversified portfolios). Intercept = R_f, slope = market risk premium. CML and CAL are different concepts.", f:""},
+  {c:'ch5', src:'INV QUIZ 2 Q22', q:'You invest $600 in a security with beta 1.2 and $400 in another security with beta 0.90. The beta of the resulting portfolio is:', o:["1.40","1.00","0.36","1.08","0.80"], a:3, r:"Portfolio beta is a weighted average of individual betas. w_1 = 600/1000 = 0.6, w_2 = 400/1000 = 0.4. β_p = 0.6·1.2 + 0.4·0.9 = 0.72 + 0.36 = 1.08.", f:"β_p = Σ w_i · β_i"},
+
+  // ===== Arabic exam (Spring 2026 parallel class, in-scope = 4 chapters; indexes Q9/Q10/Q32-35 dropped) =====
+  {c:'ch8', src:'Arabic exam Spring 2026 Q1', q:'The bond\'s value at the moment of issuance, which the investor must pay to receive the bond from the issuer, represents:', o:["nominal (face) value","book value","market value","fair value","none of the above"], a:0, r:"The amount printed on the bond and paid by the original investor at issuance = nominal/face/par value. This is the M in V_B formulas. Don't confuse with market value (changes daily) or fair value (computed from PV of cash flows).", f:""},
+  {c:'ch8', src:'Arabic exam Spring 2026 Q2', q:"___ are the financial securities whose evaluation is facilitated by the ability to estimate cash flows resulting from them with full accuracy:", o:["common stock","stock options","bonds","preferred stock","none of the above"], a:2, r:"BONDS have contractually-fixed cash flows: coupons (fixed) + par at maturity (fixed). Easy to value precisely with the PV formula. Stocks have uncertain dividends; options have non-linear payoffs.", f:""},
+  {c:'ch9', src:'Arabic exam Spring 2026 Q3', q:'An investor is thinking of buying a stock at price 32 EGP per share now. The stock yields dividends of 3.8 EGP per year. Required rate of return = 12%. The fair value of the stock equals:', o:["32","31.86","31.96","40"], a:1, r:"Constant-dividend perpetuity: P_fair = D / k = 3.8 / 0.12 = $31.67. Closest option (b) $31.86. Note: market price ($32) > fair value (~$31.67) suggests the stock is slightly overpriced.", f:"P = D / k (zero-growth perpetuity)"},
+  {c:'ch8', src:'Arabic exam Spring 2026 Q4', q:'A bond with face value 1,000 EGP and 10% coupon, matures in 3 years. The required rate of return = 10%. The fair value of the bond equals:', o:["950","1,000","1,052","1,095"], a:1, r:"Coupon rate (10%) = required rate (10%) ⇒ par bond. Price = $1,000 exactly. The PV of coupons (3 yrs × $100 = $248.69) plus PV of par ($751.31) = $1,000.", f:"coupon = k_d ⇒ price = par"},
+  {c:'opts', src:'Arabic exam Spring 2026 Q5', q:'It is a financial instrument that grants the owner the right to buy or sell any asset at a specified price at any time before the maturity date:', o:["common stock","bonds","options","preferred stock","none of the above"], a:2, r:"This is the definition of an OPTION (specifically an American-style option, since it allows exercise any time before expiration). Right (not obligation) to buy or sell at strike price.", f:""},
+  {c:'opts', src:'Arabic exam Spring 2026 Q6', q:'The party in the option contract that commits to executing or not executing the contract according to the buyer\'s decision, in exchange for receiving compensation, is the:', o:["broker","contract buyer (holder)","settlement house","contract writer (seller)"], a:3, r:"The WRITER (seller) has the OBLIGATION to honor the buyer's exercise decision. They received the premium upfront as compensation. The buyer has the right; the writer has the obligation.", f:""},
+  {c:'ch8', src:'Arabic exam Spring 2026 Q7', q:'A bond with face value 1,000 EGP, coupon 13% paid annually, issued 1/1/2020 with maturity 1/1/2024 (4 years), YTM = 10%. The fair value of the bond equals:', o:["950","1,000","1,052","1,095"], a:3, r:"Annual coupon = 0.13·1000 = $130. N = 4. V = 130·[(1−1.1⁻⁴)/0.10] + 1000/1.1⁴ = 130·3.1699 + 1000·0.6830 = $412.09 + $683.01 = $1,095.10. Coupon (13%) > YTM (10%) ⇒ premium ✓.", f:"V_B = PMT·[(1−(1+r)⁻ᴺ)/r] + M/(1+r)ᴺ"},
+  {c:'ch9', src:'Arabic exam Spring 2026 Q8', q:'A holder enjoys some rights, the most important being: the right to vote in the general assembly, the right to transfer ownership, and the right to receive profits if management decides to distribute them. This describes:', o:["common stock","options","bonds","preferred stock"], a:0, r:"Voting rights + share in distributed profits + transferability = COMMON STOCK. Bondholders don't vote and don't share profits. Preferred stockholders typically don't vote (they get a fixed dividend instead). Options are derivatives, not ownership.", f:""},
+  {c:'ch9', src:'Arabic exam Spring 2026 Q11', q:'In the constant-growth (Gordon) model for stock valuation:', o:["dividend value reaches zero","the stockholder receives constant dividends","dividends grow at a constant rate","dividends grow at a zero rate"], a:2, r:"Definition of constant-growth model: dividends grow at a single constant rate g forever. (b) describes ZERO-growth case (perpetuity); (d) is just g=0; (a) makes no sense.", f:"D_t = D_0(1+g)^t"},
+  {c:'ch8', src:'Arabic exam Spring 2026 Q12', q:'In light of this right, the issuer of the bond stipulates the possibility of repaying the loan at any time after the issue date, or may set a specific period for repayment. This describes the:', o:["right of recall (call provision)","right of conversion","right of maturity","right of payment"], a:0, r:"Call provision = right of recall. The ISSUER reserves the right to call back (repay) the bond early — typically when interest rates fall and they want to refinance cheaper.", f:""},
+  {c:'ch9', src:'Arabic exam Spring 2026 Q13', q:'According to the Gordon model, which of the following would INCREASE the fair value of the stock?', o:["decrease in expected dividend growth rate","decrease in required rate of return","decrease in expected dividends","none of the above"], a:1, r:"P̂₀ = D₁/(k_s − g). To increase price: decrease k_s (smaller denominator) OR increase g. Decreasing g decreases price; decreasing dividends decreases price. Only (b) lifts the price.", f:"∂P̂₀/∂k_s < 0; ∂P̂₀/∂g > 0"},
+  {c:'ch9', src:'Arabic exam Spring 2026 Q14', q:'Calculate the fair value of Nile Co. stock if dividends are 2 EGP and constant, and the required rate of return is 13%:', o:["2","16.67","13","15.4"], a:3, r:"Constant dividend ⇒ zero-growth perpetuity. P = D/k = 2/0.13 = $15.385 ≈ $15.4.", f:"P = D / k"},
+  {c:'opts', src:'Arabic exam Spring 2026 Q15', q:'Investors expecting price increases will buy ___ options, while investors expecting price decreases will buy ___ options:', o:["call, put","sell, sell","sell, buy","buy, buy"], a:0, r:"Bullish (expects rise) → buy CALL (right to BUY at low strike, then sell at higher market price). Bearish (expects fall) → buy PUT (right to SELL at high strike when market price is lower).", f:""},
+  {c:'ch9', src:'Arabic exam Spring 2026 Q16', q:'Calculate the fair value of United Telecom stock with: previous (most-recent) dividend = 15 EGP/share, required return 12%, retention ratio 50%, return on equity 16%.', o:["405","375","135","125"], a:0, r:"Sustainable growth: g = retention × ROE = 0.50·0.16 = 0.08 = 8%. D₁ = D₀(1+g) = 15·1.08 = $16.20. P̂₀ = D₁/(k_s−g) = 16.20/(0.12−0.08) = 16.20/0.04 = $405.", f:"g = b·ROE; P̂₀ = D₁/(k_s−g)"},
+  {c:'opts', src:'Arabic exam Spring 2026 Q17', q:'When the strike price of a put option is HIGHER than the market price of the stock at execution time, the buyer of the put will:', o:["not pay compensation to the option writer","execute or not execute, both equivalent","execute the put option","not execute the buy option"], a:2, r:"Strike > MP for a put ⇒ put is in-the-money ⇒ EXERCISE. The buyer sells at the high strike and could buy in the market for lower → profit per share = Strike − MP.", f:"V_put = max(Strike − MP, 0)"},
+  {c:'ch9', src:'Arabic exam Spring 2026 Q18', q:'An investor wants to receive 150 EGP annually from investing in bonds forever (perpetuity), and the relevant interest rate is 6%. The amount that must be paid is:', o:["100","108","1,000","2,500"], a:3, r:"Perpetuity formula: P = D/k = 150/0.06 = $2,500. Same logic as zero-growth stock or perpetual preferred share valuation.", f:"P = D / k"},
+  {c:'ch8', src:'Arabic exam Spring 2026 Q19', q:'A bond has face value 1,000 EGP and 8% coupon, matures in 3 years. Sells in market for 950. YTM equals:', o:["8%","10%","7%","6%"], a:1, r:"Solve =RATE(3, 80, −950, 1000). Result ≈ 9.95% ≈ 10%. Sanity: price (950) < par (1,000) ⇒ discount ⇒ YTM > coupon (8%). 10% > 8% ✓.", f:"=RATE(N, PMT, −PV, FV)"},
+  {c:'ch8', src:'Arabic exam Spring 2026 Q20', q:'A bond with face 1,000 EGP, 10% coupon paid annually, 3-year maturity, YTM 8%. The bond sells now at:', o:["discount","premium","face value","950 EGP"], a:1, r:"Coupon rate (10%) > YTM (8%) ⇒ price > par ⇒ PREMIUM. (Computing: V = 100·[(1−1.08⁻³)/0.08] + 1000/1.08³ = 100·2.577 + 1000·0.794 = 257.71 + 793.83 = $1,051.54 — premium confirmed.)", f:"coupon > YTM ⇒ premium"},
+  {c:'opts', src:'Arabic exam Spring 2026 Q21', q:'An American CALL option gives the buyer the right to:', o:["buy the asset at execution price BEFORE and at execution time","buy the asset at execution price ONLY at execution time","sell the asset at execution price BEFORE and at execution time","sell the asset at execution price ONLY at execution time"], a:0, r:"American call = right to BUY (it's a call, not a put — eliminates c, d) anytime up to AND including expiration (American style — eliminates b which is European). So (a).", f:""},
+  {c:'ch8', src:'Arabic exam Spring 2026 Q22', q:'If YTM > coupon rate, then the bond sells:', o:["at premium","at face value","at discount","none of the above"], a:2, r:"YTM > coupon ⇒ market demands more than the bond pays ⇒ buyer pays less than par to bring effective return up to YTM ⇒ DISCOUNT.", f:""},
+  {c:'ch9', src:'Arabic exam Spring 2026 Q23', q:'TRUE or FALSE: The stock valuation process aims to reach the fair value of the stock.', o:["TRUE","FALSE"], a:0, r:"TRUE. Stock valuation models (DDM, FCF, multiples) all aim to estimate the INTRINSIC / FAIR value, which can then be compared to the market price to identify under- or over-pricing.", f:""},
+  {c:'opts', src:'Arabic exam Spring 2026 Q24', q:'TRUE or FALSE: The buyer\'s gains in the option contract balance the writer\'s gains when the market price equals the execution price.', o:["TRUE","FALSE"], a:0, r:"At MP = Strike: intrinsic value = 0, so buyer loses premium and writer keeps premium. They are EQUAL IN MAGNITUDE (both equal to ±Premium) — interpreting Arabic 'تتعادل' (balance/equal in magnitude) → TRUE. Note: their P&Ls are mirror images (opposite signs) — options are zero-sum.", f:""},
+  {c:'ch8', src:'Arabic exam Spring 2026 Q25', q:'A bond sells in the market at face value when:', o:["YTM > coupon rate","coupon rate = YTM","coupon rate > YTM","does not happen","none of the above"], a:1, r:"Par bond ⇔ coupon = YTM. The bond's promised return exactly matches market demand, so the price equals face value with no premium/discount.", f:"coupon = YTM ⇒ price = par"},
+  {c:'ch8', src:'Arabic exam Spring 2026 Q26', q:'There is a ___ relationship between bond prices in the market and YTM (market interest rates):', o:["direct (positive)","equivalent","inverse (negative)","balanced","none of the above"], a:2, r:"Bond price = PV of cash flows discounted at YTM. Higher YTM ⇒ bigger discount ⇒ lower price (and vice versa). INVERSE relationship — the cornerstone of interest-rate (price) risk in Ch 8 §5a.", f:""},
+  {c:'opts', src:'Arabic exam Spring 2026 Q27', q:'EZZ Gas Co stock is at $50 on Jan 1. Investor expects rise in May, so buys a CALL option with premium = $3 and strike = $50. What is the call option\'s value (intrinsic) in May if stock = $70?', o:["17","20","5","23"], a:1, r:"V_call = max(MP − Strike, 0) = max(70 − 50, 0) = $20. (Note: intrinsic value is BEFORE deducting premium. Buyer's P&L would be 20 − 3 = $17.)", f:"V_call = max(MP − Strike, 0)"},
+  {c:'opts', src:'Arabic exam Spring 2026 Q28', q:'EZZ Gas Co (same): calculate the gain/loss for the BUYER (option holder) if the stock price in May = $70:', o:["17","−17","23","20"], a:0, r:"Buyer P&L = V_call − Premium = (70−50) − 3 = 20 − 3 = +$17. Above breakeven of $53, so net profit.", f:"Buyer P&L = max(MP−Strike,0) − Premium"},
+  {c:'opts', src:'Arabic exam Spring 2026 Q29', q:'EZZ Gas Co (same): what is the call option\'s value in May if stock = $40?', o:["zero","3","−10","10"], a:0, r:"V_call = max(MP − Strike, 0) = max(40 − 50, 0) = max(−10, 0) = $0. Holder simply doesn't exercise — buys cheaper in the market instead.", f:"V_call = max(MP − Strike, 0)"},
+  {c:'opts', src:'Arabic exam Spring 2026 Q30', q:'EZZ Gas Co (same): calculate the gain/loss for the WRITER if the stock price in May = $40:', o:["zero","3","−10","−3"], a:1, r:"Writer P&L = Premium − V_call = 3 − max(40−50,0) = 3 − 0 = +$3. The buyer doesn't exercise (OTM), so the writer keeps the full premium.", f:"Writer P&L = Premium − V_call"},
+  {c:'opts', src:'Arabic exam Spring 2026 Q31', q:'EZZ Gas Co (same): what is the breakeven price for the BUYER?', o:["47","23","53","17"], a:2, r:"Call buyer breakeven = Strike + Premium = 50 + 3 = $53. Below $53, buyer loses (partial or all premium); at $53, profit = 0; above $53, net profit.", f:"Breakeven (call) = Strike + Premium"},
+  {c:'ch5', src:'Arabic exam Spring 2026 Q36', q:'Probability distribution: 5% return with prob 0.25 (depression), 10% with prob 0.50 (recession), 15% with prob 0.25 (prosperity). Compute expected return and standard deviation.', o:["E[R]=4%, σ=2.5%","E[R]=10%, σ=3.5%","E[R]=8%, σ=4%","E[R]=7%, σ=3%"], a:1, r:"E[R] = 0.25·5% + 0.50·10% + 0.25·15% = 1.25 + 5 + 3.75 = 10%. σ² = 0.25·(5−10)² + 0.50·(10−10)² + 0.25·(15−10)² = 0.25·25 + 0 + 0.25·25 = 12.5 (in %²). σ = √12.5 ≈ 3.54% ≈ 3.5%.", f:"E[R] = Σ p_i R_i; σ = √Σ p_i (R_i−E[R])²"},
+  {c:'ch5', src:'Arabic exam Spring 2026 Q37', q:'Two-stock portfolio: Stock A (E[R]=18%, σ=30%), Stock B (E[R]=14%, σ=20%). Correlation ρ_AB = +1. Weights: 0.70 A and 0.30 B. Portfolio expected return AND total risk (σ_p) =', o:["16.8% and 27%","13% and 15%","21.8% and 15%","17% and 23%"], a:0, r:"E[R_p] = 0.7·18% + 0.3·14% = 12.6 + 4.2 = 16.8%. σ²_p = (0.7)²(0.30)² + (0.3)²(0.20)² + 2(0.7)(0.3)(1)(0.30)(0.20) = 0.0441 + 0.0036 + 0.0252 = 0.0729. σ_p = √0.0729 = 0.27 = 27%. (With ρ=+1 there's NO diversification benefit — σ_p equals the weighted average of σs.)", f:"σ²_p = w_A²σ_A² + w_B²σ_B² + 2w_Aw_B·ρ_AB·σ_Aσ_B"},
+  {c:'ch5', src:'Arabic exam Spring 2026 Q38', q:'Expected return on a stock = 13%, expected return on market = 15%, beta = 1.5, risk-free rate = 5%. According to CAPM: required return and accept/reject decision:', o:["20% / advise NOT buying","17% / advise buying","20% / advise buying","13% / none of the answers correct"], a:0, r:"K_required = R_f + β(R_M − R_f) = 5% + 1.5·(15%−5%) = 5% + 15% = 20%. Alpha = E[R] − K = 13% − 20% = −7%. Negative alpha ⇒ stock is overpriced ⇒ REJECT (don't buy).", f:"K = R_f + β(R_M−R_f); α = E[R]−K"},
+  {c:'ch5', src:'Arabic exam Spring 2026 Q39', q:'Standard deviation of investment return σ_X = 0.12. Standard deviation of market return σ_M = 0.08. Covariance between investment and market = 0.003. Find the correlation coefficient between investment and market:', o:["0.31","0.70","0.28","−1"], a:0, r:"ρ = Cov(X,M) / (σ_X · σ_M) = 0.003 / (0.12 · 0.08) = 0.003 / 0.0096 = 0.3125 ≈ 0.31. The investment moves moderately positively with the market.", f:"ρ = Cov(X,Y) / (σ_X · σ_Y)"},
+  {c:'ch5', src:'Arabic exam Spring 2026 Q40', q:'___ is a measure that quantifies a stock\'s return volatility (or risk) RELATIVE to the market:', o:["standard deviation","beta","correlation coefficient","covariance"], a:1, r:"BETA measures relative-to-market volatility (β=1 moves with market; β>1 more volatile; β<1 less). Standard deviation is absolute risk (not relative). Correlation measures direction of co-movement, not magnitude. Covariance has units that depend on scale.", f:"β = Cov(R, R_M) / σ²_M"},
+];
+</script>
 
 <script>
 // ===== Tab switching =====
@@ -3331,6 +3547,72 @@ window.addEventListener('load', () => {
     if(el) el.addEventListener('input', updateRiskCalc);
   });
   updateRiskCalc();
+
+  // ===== Practice Exam — render + filter + test mode =====
+  const examBank = window.__examBank || [];
+  const chapterLabels = {ch5:'Risk', ch8:'Bonds', ch9:'Stocks', opts:'Options'};
+  function renderExamBank(){
+    const host = document.getElementById('examQuestions');
+    if(!host) return;
+    const counts = {all:0, ch5:0, ch8:0, ch9:0, opts:0};
+    host.innerHTML = examBank.map((q, idx) => {
+      counts.all++; counts[q.c] = (counts[q.c]||0)+1;
+      const opts = (q.o||[]).map((opt, i) => {
+        const letter = String.fromCharCode(97+i);
+        const isCorrect = i === q.a;
+        return `<li data-letter="${letter})" class="${isCorrect?'correct':''}">${opt}</li>`;
+      }).join('');
+      const correctLetter = String.fromCharCode(97 + (q.a||0));
+      const formula = q.f ? `<p><strong class="label">Formula:</strong> ${q.f}</p>` : '';
+      return `<div class="exam-q" data-chapter="${q.c}" data-idx="${idx}">
+        <div class="exam-q-head">
+          <span class="chapter-tag ${q.c}">${chapterLabels[q.c]||q.c}</span>
+          <span class="q-num">Q${idx+1}</span>
+          <span class="q-source">Source: ${q.src}</span>
+        </div>
+        <p class="q-text">${q.q}</p>
+        ${opts ? '<ul class="q-options">'+opts+'</ul>' : ''}
+        <div class="answer-box">
+          <button class="answer-toggle" type="button">Show answer</button>
+          <div class="answer-body">
+            <p><span class="answer-letter">${correctLetter.toUpperCase()}</span><strong class="label">Answer</strong></p>
+            <p><strong class="label">Why:</strong> ${q.r||''}</p>
+            ${formula}
+          </div>
+        </div>
+      </div>`;
+    }).join('') || '<div class="exam-empty">No questions in scope yet.</div>';
+    document.getElementById('totalCount').textContent = counts.all;
+    Object.keys(counts).forEach(k => {
+      const el = document.getElementById('cnt-'+k);
+      if(el) el.textContent = counts[k];
+    });
+    // wire individual answer toggles
+    host.querySelectorAll('.exam-q .answer-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.closest('.exam-q').classList.toggle('revealed');
+      });
+    });
+  }
+  function applyExamFilter(filter){
+    document.querySelectorAll('#examQuestions .exam-q').forEach(card => {
+      card.hidden = (filter !== 'all' && card.dataset.chapter !== filter);
+    });
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+  }
+  renderExamBank();
+  document.querySelectorAll('.filter-btn').forEach(b => b.addEventListener('click', () => applyExamFilter(b.dataset.filter)));
+  const tmBtn = document.getElementById('testModeBtn');
+  if(tmBtn){
+    tmBtn.addEventListener('click', () => {
+      tmBtn.classList.toggle('active');
+      const showAll = !tmBtn.classList.contains('active');
+      document.querySelectorAll('#examQuestions .exam-q').forEach(card => {
+        card.classList.toggle('revealed', showAll);
+      });
+      tmBtn.textContent = tmBtn.classList.contains('active') ? 'Reveal all answers' : 'Test mode';
+    });
+  }
 });
 </script>
 
