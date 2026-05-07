@@ -7,7 +7,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
 <!-- KaTeX -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -23,15 +23,39 @@
 
 <style>
 :root{
+  /* Textbook / cream-paper theme — DEFAULT (reading-friendly) */
+  --bg:#faf6ee;          /* cream paper */
+  --bg-2:#f3ebd9;        /* warmer card body */
+  --panel:#fdfaf3;       /* lightest panel */
+  --panel-2:#f5efe1;     /* secondary panel */
+  --line:#d9d0bf;        /* warm divider */
+  --text:#1c1d20;        /* near-black warm */
+  --heading:#2c3a5a;     /* slate blue for h-tags */
+  --muted:#6e6452;       /* warm muted */
+  --accent:#4a6fa5;      /* dusky blue */
+  --accent-2:#c9943f;    /* warm amber */
+  --good:#5a8c4a;        /* muted forest */
+  --warn:#c9943f;        /* warm amber (same as accent-2) */
+  --bad:#b04848;         /* muted brick red */
+  --premium:#b88652;     /* muted bronze */
+  --discount:#b04848;
+  --par:#8a8270;         /* warm grey */
+  --shadow:0 6px 22px rgba(40,30,20,.10);
+  --radius:14px;
+  --paper-grad:linear-gradient(180deg, #faf6ee 0%, #f7f2e6 100%);
+}
+:root.dark{
+  /* Original slate dark — opt-in via toggle */
   --bg:#0b1020;
   --bg-2:#111a33;
   --panel:#172244;
   --panel-2:#1d2a52;
   --line:#2a3a6e;
   --text:#e6ecff;
+  --heading:#e6ecff;
   --muted:#9aa7d1;
-  --accent:#7c5cff;       /* violet */
-  --accent-2:#22d3ee;     /* cyan */
+  --accent:#7c5cff;
+  --accent-2:#22d3ee;
   --good:#34d399;
   --warn:#fbbf24;
   --bad:#f87171;
@@ -39,37 +63,38 @@
   --discount:#f87171;
   --par:#a3a3a3;
   --shadow:0 10px 30px rgba(0,0,0,.35);
-  --radius:14px;
-}
-:root.light{
-  --bg:#f6f7fb;
-  --bg-2:#ffffff;
-  --panel:#ffffff;
-  --panel-2:#f1f3f9;
-  --line:#dfe3ee;
-  --text:#0f172a;
-  --muted:#52607a;
-  --shadow:0 6px 22px rgba(15,23,42,.08);
+  --paper-grad:linear-gradient(180deg, #0b1020 0%, #111a33 100%);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  background: radial-gradient(1200px 800px at 80% -10%, rgba(124,92,255,.18), transparent 60%),
-              radial-gradient(1000px 700px at -10% 30%, rgba(34,211,238,.12), transparent 60%),
-              var(--bg);
+  background: var(--paper-grad);
   color:var(--text);
-  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  font-size:16px;
-  line-height:1.6;
+  font-family:'Crimson Pro','Source Serif Pro','Iowan Old Style',Georgia,serif;
+  font-size:18px;
+  line-height:1.7;
   min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+/* UI chrome (buttons, inputs, badges, code) stays sans/mono — reads cleaner */
+button, input, select, textarea, .chapter-tag, .cancelled-banner, .badge, .tab-btn, .filter-btn,
+.mock-grid-cell, .mock-status, .q-source, .q-num, .answer-letter{
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+:root.dark body{
+  background:
+    radial-gradient(1200px 800px at 80% -10%, rgba(124,92,255,.18), transparent 60%),
+    radial-gradient(1000px 700px at -10% 30%, rgba(34,211,238,.12), transparent 60%),
+    var(--bg);
 }
 header.app{
   position:sticky; top:0; z-index:50;
   backdrop-filter: blur(10px);
-  background:rgba(11,16,32,.7);
+  background:rgba(250,246,238,.85);
   border-bottom:1px solid var(--line);
 }
-:root.light header.app{background:rgba(255,255,255,.85)}
+:root.dark header.app{background:rgba(11,16,32,.7)}
 .nav{
   max-width:1200px; margin:0 auto;
   display:flex; align-items:center; gap:14px; padding:14px 22px;
@@ -104,10 +129,11 @@ main{max-width:1200px; margin:0 auto; padding:28px 22px 80px}
 @keyframes fade{from{opacity:0; transform:translateY(4px)}to{opacity:1; transform:none}}
 
 h2.tab-title{
-  font-family:'Lora',serif; font-size:34px; margin:6px 0 4px;
+  font-family:'Lora',serif; font-weight:600; font-size:34px; margin:6px 0 4px;
   letter-spacing:.2px;
+  color:var(--heading);
 }
-.subtitle{color:var(--muted); margin:0 0 22px; font-size:15px}
+.subtitle{color:var(--muted); margin:0 0 22px; font-size:15px; font-style:italic}
 
 .card{
   background:linear-gradient(180deg, var(--panel), var(--panel-2));
@@ -118,9 +144,14 @@ h2.tab-title{
   box-shadow:var(--shadow);
 }
 .card h3{
-  font-family:'Lora',serif; margin:0 0 12px; font-size:22px;
+  font-family:'Lora',serif; font-weight:600; margin:0 0 12px; font-size:22px;
+  color:var(--heading);
+  letter-spacing:.1px;
 }
-.card h4{margin:18px 0 8px; font-size:17px; color:var(--text)}
+.card h4{
+  font-family:'Lora',serif; font-weight:600;
+  margin:18px 0 8px; font-size:17px; color:var(--heading);
+}
 .card p{margin:8px 0; color:var(--text)}
 .card ul, .card ol{margin:6px 0 6px 0; padding-left:22px}
 .card li{margin:4px 0}
@@ -128,6 +159,10 @@ h2.tab-title{
 hr{border:0; border-top:1px solid var(--line); margin:18px 0}
 
 .tldr{
+  background:linear-gradient(135deg, rgba(201,148,63,.12), rgba(74,111,165,.08));
+  border:1px solid rgba(201,148,63,.35);
+}
+:root.dark .tldr{
   background:linear-gradient(135deg, rgba(124,92,255,.18), rgba(34,211,238,.12));
   border:1px solid rgba(124,92,255,.4);
 }
@@ -291,8 +326,8 @@ details.fc .answer strong{color:var(--text)}
   font-size:13px; color:var(--bad); font-weight:600;
 }
 .cancelled-inline::before{content:"🚫 CANCELLED — not on the exam: "; font-weight:700;}
-:root.light .cancelled-card{
-  background:linear-gradient(180deg, rgba(248,113,113,.10), rgba(248,113,113,.04)) !important;
+:root.dark .cancelled-card{
+  background:linear-gradient(180deg, rgba(248,113,113,.06), rgba(248,113,113,.02)) !important;
 }
 
 /* Practice Exam tab */
@@ -603,8 +638,8 @@ details.fc .answer strong{color:var(--text)}
   font-size:11px; text-transform:uppercase; letter-spacing:.5px;
 }
 .exam-q[data-cancelled="1"][hidden]{display:none}
-:root.light .exam-q-cancelled{
-  background:linear-gradient(180deg, rgba(248,113,113,.08), rgba(248,113,113,.03)) !important;
+:root.dark .exam-q-cancelled{
+  background:linear-gradient(180deg, rgba(248,113,113,.05), rgba(248,113,113,.02)) !important;
 }
 
 .placeholder{
@@ -773,7 +808,7 @@ footer{
       <button class="tab-btn" data-tab="exam">Practice Exam</button>
       <button class="tab-btn" data-tab="mock" style="background:linear-gradient(135deg,#f87171,#fbbf24);color:#fff;border-color:transparent">⏱ Actual Exam Test</button>
     </div>
-    <button class="theme-toggle" id="themeToggle" title="Toggle light/dark">🌙</button>
+    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">🌙</button>
   </div>
 </header>
 
@@ -3631,8 +3666,8 @@ tabs.forEach(t => t.addEventListener('click', () => {
 // ===== Theme toggle =====
 const themeBtn = document.getElementById('themeToggle');
 themeBtn.addEventListener('click', () => {
-  document.documentElement.classList.toggle('light');
-  themeBtn.textContent = document.documentElement.classList.contains('light') ? '☀️' : '🌙';
+  document.documentElement.classList.toggle('dark');
+  themeBtn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
 });
 
 // ===== Bond price helper =====
@@ -3735,17 +3770,17 @@ window.addEventListener('load', () => {
     data:{
       labels: Array.from({length:31}, (_,i) => 30-i),  // years remaining (descending)
       datasets:[
-        {label:'k_d = 7% (premium)', data: pData.map(p=>p.y), borderColor:'#f472b6', backgroundColor:'rgba(244,114,182,.1)', tension:0.25, pointRadius:0, borderWidth:2.5, fill:false},
-        {label:'k_d = 10% (par)',    data: parData.map(p=>p.y), borderColor:'#9aa7d1', backgroundColor:'rgba(154,167,209,.1)', tension:0, pointRadius:0, borderWidth:2.5, fill:false, borderDash:[6,4]},
-        {label:'k_d = 13% (discount)', data: dData.map(p=>p.y), borderColor:'#f87171', backgroundColor:'rgba(248,113,113,.1)', tension:0.25, pointRadius:0, borderWidth:2.5, fill:false},
+        {label:'k_d = 7% (premium)', data: pData.map(p=>p.y), borderColor:'#b88652', backgroundColor:'rgba(184,134,82,.15)', tension:0.25, pointRadius:0, borderWidth:2.5, fill:false},
+        {label:'k_d = 10% (par)',    data: parData.map(p=>p.y), borderColor:'#8a8270', backgroundColor:'rgba(138,130,112,.15)', tension:0, pointRadius:0, borderWidth:2.5, fill:false, borderDash:[6,4]},
+        {label:'k_d = 13% (discount)', data: dData.map(p=>p.y), borderColor:'#b04848', backgroundColor:'rgba(176,72,72,.15)', tension:0.25, pointRadius:0, borderWidth:2.5, fill:false},
       ]
     },
     options:{
       responsive:true,
-      plugins:{legend:{labels:{color:'#e6ecff'}}},
+      plugins:{legend:{labels:{color:'#1c1d20'}}},
       scales:{
-        x:{title:{display:true, text:'Years remaining to maturity', color:'#9aa7d1'}, ticks:{color:'#9aa7d1'}, grid:{color:'rgba(154,167,209,.15)'}},
-        y:{title:{display:true, text:'Bond value ($)', color:'#9aa7d1'}, ticks:{color:'#9aa7d1'}, grid:{color:'rgba(154,167,209,.15)'}}
+        x:{title:{display:true, text:'Years remaining to maturity', color:'#6e6452'}, ticks:{color:'#6e6452'}, grid:{color:'rgba(120,100,70,.18)'}},
+        y:{title:{display:true, text:'Bond value ($)', color:'#6e6452'}, ticks:{color:'#6e6452'}, grid:{color:'rgba(120,100,70,.18)'}}
       }
     }
   });
@@ -3765,16 +3800,16 @@ window.addEventListener('load', () => {
     data:{
       labels: rateLabels,
       datasets:[
-        {label:'1-year, 10% coupon',  data: oneYr,  borderColor:'#22d3ee', backgroundColor:'rgba(34,211,238,.1)', tension:0.2, pointRadius:0, borderWidth:2.5, fill:false},
-        {label:'10-year, 10% coupon', data: tenYr, borderColor:'#f472b6', backgroundColor:'rgba(244,114,182,.1)', tension:0.2, pointRadius:0, borderWidth:2.5, fill:false},
+        {label:'1-year, 10% coupon',  data: oneYr,  borderColor:'#4a6fa5', backgroundColor:'rgba(74,111,165,.15)', tension:0.2, pointRadius:0, borderWidth:2.5, fill:false},
+        {label:'10-year, 10% coupon', data: tenYr, borderColor:'#b88652', backgroundColor:'rgba(184,134,82,.15)', tension:0.2, pointRadius:0, borderWidth:2.5, fill:false},
       ]
     },
     options:{
       responsive:true,
-      plugins:{legend:{labels:{color:'#e6ecff'}}},
+      plugins:{legend:{labels:{color:'#1c1d20'}}},
       scales:{
-        x:{title:{display:true, text:'Required yield k_d', color:'#9aa7d1'}, ticks:{color:'#9aa7d1'}, grid:{color:'rgba(154,167,209,.15)'}},
-        y:{title:{display:true, text:'Bond price ($)', color:'#9aa7d1'}, ticks:{color:'#9aa7d1'}, grid:{color:'rgba(154,167,209,.15)'}}
+        x:{title:{display:true, text:'Required yield k_d', color:'#6e6452'}, ticks:{color:'#6e6452'}, grid:{color:'rgba(120,100,70,.18)'}},
+        y:{title:{display:true, text:'Bond price ($)', color:'#6e6452'}, ticks:{color:'#6e6452'}, grid:{color:'rgba(120,100,70,.18)'}}
       }
     }
   });
@@ -3800,19 +3835,19 @@ window.addEventListener('load', () => {
         datasets:[{
           label:'P̂₀ given D₀=$2, k_s=13%',
           data: gPrice,
-          borderColor:'#7c5cff', backgroundColor:'rgba(124,92,255,.18)',
+          borderColor:'#c9943f', backgroundColor:'rgba(201,148,63,.20)',
           tension:0.15, pointRadius:0, borderWidth:2.5, fill:true
         }]
       },
       options:{
         responsive:true,
         plugins:{
-          legend:{labels:{color:'#e6ecff'}},
+          legend:{labels:{color:'#1c1d20'}},
           tooltip:{callbacks:{label: ctx => 'Price = $' + ctx.parsed.y.toFixed(2)}}
         },
         scales:{
-          x:{title:{display:true, text:'Growth rate g', color:'#9aa7d1'}, ticks:{color:'#9aa7d1', maxTicksLimit:10}, grid:{color:'rgba(154,167,209,.15)'}},
-          y:{title:{display:true, text:'Stock price P̂₀ ($)', color:'#9aa7d1'}, ticks:{color:'#9aa7d1'}, grid:{color:'rgba(154,167,209,.15)'}}
+          x:{title:{display:true, text:'Growth rate g', color:'#6e6452'}, ticks:{color:'#6e6452', maxTicksLimit:10}, grid:{color:'rgba(120,100,70,.18)'}},
+          y:{title:{display:true, text:'Stock price P̂₀ ($)', color:'#6e6452'}, ticks:{color:'#6e6452'}, grid:{color:'rgba(120,100,70,.18)'}}
         }
       }
     });
@@ -3828,8 +3863,8 @@ window.addEventListener('load', () => {
         datasets:[{
           label: 'PV contribution to stock value ($)',
           data: [2.301, 2.647, 3.045, 46.116],
-          backgroundColor: ['#22d3ee','#22d3ee','#22d3ee','#7c5cff'],
-          borderColor: ['#22d3ee','#22d3ee','#22d3ee','#7c5cff'],
+          backgroundColor: ['#4a6fa5','#4a6fa5','#4a6fa5','#c9943f'],
+          borderColor: ['#4a6fa5','#4a6fa5','#4a6fa5','#c9943f'],
           borderWidth: 1
         }]
       },
@@ -3840,8 +3875,8 @@ window.addEventListener('load', () => {
           tooltip:{callbacks:{label: ctx => '$' + ctx.parsed.y.toFixed(2) + '  (' + (ctx.parsed.y/54.109*100).toFixed(1) + '% of total)'}}
         },
         scales:{
-          x:{ticks:{color:'#9aa7d1'}, grid:{color:'rgba(154,167,209,.05)'}},
-          y:{title:{display:true, text:'PV contribution ($)', color:'#9aa7d1'}, ticks:{color:'#9aa7d1'}, grid:{color:'rgba(154,167,209,.15)'}}
+          x:{ticks:{color:'#6e6452'}, grid:{color:'rgba(120,100,70,.08)'}},
+          y:{title:{display:true, text:'PV contribution ($)', color:'#6e6452'}, ticks:{color:'#6e6452'}, grid:{color:'rgba(120,100,70,.18)'}}
         }
       }
     });
@@ -3868,22 +3903,22 @@ window.addEventListener('load', () => {
       data:{
         labels: data.labels,
         datasets:[
-          {label:'Buyer (long ' + type + ')', data: data.buyer, borderColor:'#22d3ee', backgroundColor:'rgba(34,211,238,.1)', tension:0, pointRadius:0, borderWidth:2.5, fill:false},
-          {label:'Writer (short ' + type + ')', data: data.writer, borderColor:'#f472b6', backgroundColor:'rgba(244,114,182,.1)', tension:0, pointRadius:0, borderWidth:2.5, fill:false},
+          {label:'Buyer (long ' + type + ')', data: data.buyer, borderColor:'#4a6fa5', backgroundColor:'rgba(74,111,165,.15)', tension:0, pointRadius:0, borderWidth:2.5, fill:false},
+          {label:'Writer (short ' + type + ')', data: data.writer, borderColor:'#b88652', backgroundColor:'rgba(184,134,82,.15)', tension:0, pointRadius:0, borderWidth:2.5, fill:false},
         ]
       },
       options:{
         responsive:true,
         plugins:{
-          legend:{labels:{color:'#e6ecff'}},
+          legend:{labels:{color:'#1c1d20'}},
           tooltip:{callbacks:{
             title: items => 'Stock price = $' + items[0].label,
             label: ctx => ctx.dataset.label + ': $' + ctx.parsed.y.toFixed(2)
           }}
         },
         scales:{
-          x:{title:{display:true, text:'Stock price at expiration ($)', color:'#9aa7d1'}, ticks:{color:'#9aa7d1', maxTicksLimit:12}, grid:{color:'rgba(154,167,209,.15)'}},
-          y:{title:{display:true, text:'Profit / Loss ($)', color:'#9aa7d1'}, ticks:{color:'#9aa7d1'}, grid:{color:'rgba(154,167,209,.15)'}}
+          x:{title:{display:true, text:'Stock price at expiration ($)', color:'#6e6452'}, ticks:{color:'#6e6452', maxTicksLimit:12}, grid:{color:'rgba(120,100,70,.18)'}},
+          y:{title:{display:true, text:'Profit / Loss ($)', color:'#6e6452'}, ticks:{color:'#6e6452'}, grid:{color:'rgba(120,100,70,.18)'}}
         }
       }
     };
