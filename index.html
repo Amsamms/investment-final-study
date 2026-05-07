@@ -255,6 +255,46 @@ details.fc[open] summary::after{content:'−'}
 details.fc .answer{margin-top:10px; padding-top:10px; border-top:1px solid var(--line); color:var(--muted)}
 details.fc .answer strong{color:var(--text)}
 
+/* Cancelled-topic markers (kept in the chapter for completeness, but flagged as out-of-scope) */
+.cancelled-banner{
+  display:inline-flex; align-items:center; gap:8px;
+  background:linear-gradient(135deg, rgba(248,113,113,.25), rgba(248,113,113,.10));
+  border:1px solid var(--bad); color:var(--bad);
+  padding:6px 14px; border-radius:999px;
+  font-weight:700; font-size:13px; letter-spacing:.5px; text-transform:uppercase;
+  margin:8px 0 12px;
+}
+.cancelled-banner::before{content:"🚫"; font-size:14px;}
+.cancelled-card{
+  position:relative;
+  border-color:rgba(248,113,113,.5) !important;
+  background:linear-gradient(180deg, rgba(248,113,113,.06), rgba(248,113,113,.02)) !important;
+}
+.cancelled-card::after{
+  content:"NOT ON THE EXAM";
+  position:absolute; top:14px; right:14px;
+  background:var(--bad); color:#fff;
+  padding:4px 10px; border-radius:6px;
+  font-size:11px; font-weight:700; letter-spacing:1px;
+  box-shadow:0 4px 12px rgba(248,113,113,.4);
+}
+.cancelled-card h3, .cancelled-card h4{
+  text-decoration:line-through;
+  text-decoration-color:rgba(248,113,113,.6);
+  text-decoration-thickness:2px;
+}
+.cancelled-inline{
+  background:rgba(248,113,113,.18);
+  border-left:4px solid var(--bad);
+  padding:6px 14px; margin:8px 0;
+  border-radius:0 8px 8px 0;
+  font-size:13px; color:var(--bad); font-weight:600;
+}
+.cancelled-inline::before{content:"🚫 CANCELLED — not on the exam: "; font-weight:700;}
+:root.light .cancelled-card{
+  background:linear-gradient(180deg, rgba(248,113,113,.10), rgba(248,113,113,.04)) !important;
+}
+
 .placeholder{
   text-align:center; padding:60px 20px; color:var(--muted);
 }
@@ -297,6 +337,15 @@ footer{
 <section class="tab-pane active" id="ch8">
   <h2 class="tab-title">Ch 8 — Bonds and Their Valuation</h2>
   <p class="subtitle">From <em>FFM, Chapter 8</em> · Source: <code class="kbd">ffm908 CHAPTER 8 Bonds and Their Valuation.ppt</code> (43 slides)</p>
+
+  <div class="callout bad" style="margin-bottom:18px">
+    <strong>🚫 Cancelled topics in this chapter (NOT on the exam):</strong>
+    <ul style="margin:6px 0">
+      <li>§6e — Effective Annual Rate (EFF%) calculation. <em>The semi-annual conversion in §6b–§6d is still in scope; only the nominal-vs-effective conversion is dropped.</em></li>
+      <li>§8d — Bankruptcy chapters (Ch 11 vs Ch 7) and the reorganization process. <em>§8e — the 8-tier liquidation priority list — IS still in scope.</em></li>
+    </ul>
+    Cancelled sections remain in the chapter at full length so you can keep reading the flow. They're labelled with a small "cancelled" pill next to their heading. Just skip them on a focused exam study pass.
+  </div>
 
   <p class="muted" style="margin-bottom:18px">Read top to bottom. The chapter <strong>builds up</strong> from "what is a bond" → master formula → worked examples → risk → semi-annual + YTC → traps. The <em>recap card</em> ("the 5 things to remember") sits at the very end so you only see it <strong>after</strong> you've actually understood the material.</p>
 
@@ -807,7 +856,7 @@ Nominal annual YTC = 3.568% × 2 = 7.137%</div>
       </ul>
     </div>
 
-    <h4>6e · Nominal annual rate vs Effective annual rate (EFF%)</h4>
+    <h4>6e · Nominal annual rate vs Effective annual rate (EFF%) <span class="cancelled-banner" style="font-size:11px;vertical-align:middle">cancelled — not on the exam</span></h4>
     <p>One last subtlety. When a problem says "k<sub>d</sub> = 13% semi-annual," it usually means the <strong>nominal annual rate</strong> — a quoted yearly figure that gets divided by the number of periods per year. So you use 13%/2 = 6.5% per 6-month period.</p>
     <p>But "earning 6.5% twice a year" is <em>not exactly</em> the same as "earning 13% once a year." Because the first 6.5% gets reinvested and earns its own 6.5% in the second half of the year, you actually end up with slightly more than 13%. The true annualized return is called the <strong>effective annual rate (EFF%)</strong>.</p>
     <div class="formula-box">
@@ -943,7 +992,7 @@ EFF%        = (1 + 0.03568)² − 1
       </div>
     </div>
 
-    <h4>8d · What happens when a borrower really can't pay — bankruptcy</h4>
+    <h4>8d · What happens when a borrower really can't pay — bankruptcy <span class="cancelled-banner" style="font-size:11px;vertical-align:middle">cancelled — not on the exam</span></h4>
     <p>If a company truly can't cover its debts, U.S. federal law gives it two main options under the <strong>Bankruptcy Act</strong>:</p>
 
     <table class="tbl">
@@ -962,7 +1011,7 @@ EFF%        = (1 + 0.03568)² − 1
       <li>If the plan fails, the judge orders a <strong>conversion to Chapter 7</strong> — the company gets liquidated.</li>
     </ol>
 
-    <h4>8e · Liquidation payoff order — exam favorite</h4>
+    <h4>8e · Liquidation payoff order — exam favorite (STILL IN SCOPE)</h4>
     <p>If a company is liquidated under Chapter 7, the cash from selling the assets is paid out in this <strong>strict legal order</strong>. Each tier must be fully paid before the next tier gets anything. Memorize this list — it shows up on multiple-choice questions almost every year.</p>
     <ol>
       <li><strong>Secured creditors</strong> — get paid from the sale of the specific assets that secured their loans (e.g., the bondholder of a mortgage bond gets the proceeds from selling the building).</li>
@@ -990,7 +1039,7 @@ EFF%        = (1 + 0.03568)² − 1
       <li><strong>Maturity → price sensitivity.</strong> "For a given Δk<sub>d</sub>, the <em>longer</em> the maturity, the <em>larger</em> the change in price" — <strong>TRUE</strong>. (Sometimes phrased with two blanks: longer → larger.)</li>
       <li><strong>Semi-annual conversion.</strong> If a question says "semi-annual" or "every 6 months", remember to <strong>double N, halve k<sub>d</sub>, halve coupon</strong>. The most common mistake is forgetting one of the three.</li>
       <li><strong>Callable premium → use YTC, not YTM.</strong> If the bond sells at a premium and is callable, the <em>relevant</em> yield is YTC. FV = call price (not par), N = periods to call (not maturity).</li>
-      <li><strong>Effective vs nominal yield.</strong> EFF% = (1 + r/m)<sup>m</sup> − 1. Used to compare a bond's yield against a different compounding frequency (e.g., a monthly mortgage).</li>
+      <li><span class="cancelled-banner" style="font-size:10px;margin:0 8px 0 0;vertical-align:middle">cancelled</span><strong>Effective vs nominal yield.</strong> EFF% = (1 + r/m)<sup>m</sup> − 1. Used to compare a bond's yield against a different compounding frequency (e.g., a monthly mortgage).</li>
       <li><strong>"True or False — all 10-year bonds have the same risk."</strong> <strong>FALSE</strong>. Coupon rate also matters: low-coupon = more price risk, less reinvestment risk.</li>
     </ol>
   </div>
@@ -1063,6 +1112,14 @@ EFF%        = (1 + 0.03568)² − 1
 <section class="tab-pane" id="ch9">
   <h2 class="tab-title">Ch 9 — Stocks and Their Valuation</h2>
   <p class="subtitle">From <em>FFM, Chapter 9</em> · Source: <code class="kbd">ffm909 CHAPTER 9 Stocks and Their Valuation.ppt</code> (44 slides)</p>
+
+  <div class="callout bad" style="margin-bottom:18px">
+    <strong>🚫 Cancelled topics in this chapter (NOT on the exam):</strong>
+    <ul style="margin:6px 0">
+      <li>§9 — The entire <strong>Efficient Market Hypothesis (EMH)</strong> section. All three EMH forms (weak / semi-strong / strong) and the "why are markets efficient" reasoning are dropped.</li>
+    </ul>
+    Cancelled sections remain in the chapter at full length so you can keep reading the flow. Heading is marked with a small "cancelled" pill. Skip on a focused exam study pass.
+  </div>
 
   <p class="muted" style="margin-bottom:18px">Read top to bottom. The chapter <strong>builds up</strong> from "what is a stock" → why a stock has any value at all → the dividend discount model → three growth scenarios (constant, zero, supernormal) → the free-cash-flow alternative → market multiples → equilibrium → the Efficient Market Hypothesis → preferred stock. The <em>recap card</em> sits at the very end on purpose.</p>
 
@@ -1524,7 +1581,7 @@ Price per share = Equity value / Shares
 
   <!-- EMH -->
   <div class="card">
-    <h3>9 · The Efficient Market Hypothesis (EMH)</h3>
+    <h3>9 · The Efficient Market Hypothesis (EMH) <span class="cancelled-banner" style="font-size:11px;vertical-align:middle">cancelled — not on the exam</span></h3>
 
     <p>The <strong>Efficient Market Hypothesis</strong> is the academic finance theory that <em>"securities prices already reflect all relevant information,"</em> so on average you can't pick stocks that beat the market — only luck or genuinely new information can give you an edge.</p>
 
@@ -1702,7 +1759,7 @@ Price per share = Equity value / Shares
     <details class="fc"><summary>Three valuation approaches mentioned in the chapter?</summary>
       <div class="answer">1) Dividend growth model (DDM). 2) Free cash flow method. 3) Multiples of comparable firms (P/E, P/CF, P/Sales, P/Customer).</div></details>
 
-    <details class="fc"><summary>Three forms of the Efficient Market Hypothesis?</summary>
+    <details class="fc"><summary><span class="cancelled-banner" style="font-size:10px;margin:0 8px 0 0;vertical-align:middle">cancelled</span>Three forms of the Efficient Market Hypothesis?</summary>
       <div class="answer">Weak (past prices already in the price), Semi-strong (all public info already in), Strong (all info including insider info — not actually true).</div></details>
 
     <details class="fc"><summary>Market equilibrium condition?</summary>
@@ -1727,7 +1784,7 @@ Price per share = Equity value / Shares
       <li><strong>Constant-growth Gordon formula:</strong> \(\hat{P}_0 = \frac{D_1}{k_s - g}\). Memorize this — it's the most-used formula in the chapter. Required: k<sub>s</sub> &gt; g, and g constant forever. → §3.</li>
       <li><strong>Total return decomposition:</strong> k<sub>s</sub> = D₁/P₀ + g. In constant growth, capital-gains yield equals g exactly. → §3f.</li>
       <li><strong>Supernormal growth:</strong> forecast each dividend during the fast phase, apply Gordon at the end of the fast phase to get a terminal price, discount everything to today, sum. → §5.</li>
-      <li><strong>Equilibrium:</strong> expected return = required return → no general pressure to trade. EMH says markets stay near equilibrium because thousands of analysts process new info instantly. → §8, §9.</li>
+      <li><strong>Equilibrium:</strong> expected return = required return → no general pressure to trade. → §8. <em>(EMH discussion in §9 is cancelled — not on the exam.)</em></li>
     </ol>
   </div>
 
