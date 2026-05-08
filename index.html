@@ -978,7 +978,7 @@ footer{
     <div class="example" style="border-left-color:var(--warn)">
       <h5 style="color:var(--warn)">j · Sinking fund (another optional clause)</h5>
       <p><strong>Definition:</strong> a clause requiring the issuer to <em>retire whole bonds gradually</em> every year, instead of waiting to repay everyone at maturity.</p>
-      <p><strong>The key thing to understand — it's a lottery, not amortization.</strong> The issuer doesn't pay every bondholder a small slice each year. Each year they pick a fraction of bondholders (e.g., 10% of names from a hat) and pay <em>those</em> people their full $1,000. The picked bondholder is <strong>cashed out completely</strong> — bond gone, no more coupons. Everyone else keeps holding their bond and keeps receiving coupons exactly as before.</p>
+      <p><strong>Mechanism — like amortization in spirit, but executed as a lottery.</strong> The slide deck calls this <em>"similar to amortization on a term loan"</em>, and it's true that the issuer is gradually retiring debt over the bond's life. But unlike a normal amortization schedule (which trims every borrower's principal pro-rata), here the issuer doesn't pay every bondholder a small slice each year. Each year they pick a fraction of bondholders (e.g., 10% of names from a hat) and pay <em>those</em> people their full $1,000. The picked bondholder is <strong>cashed out completely</strong> — bond gone, no more coupons. Everyone else keeps holding their bond and keeps receiving coupons exactly as before. So if an MCQ asks "sinking fund is similar to ___", the deck's answer is "amortization on a term loan" — keep that phrasing in mind.</p>
       <p><strong>Concrete picture:</strong> 1,000 people each lent $1,000 on a 10-year, 8% coupon bond with a sinking fund retiring 100 bonds/year.</p>
       <ul>
         <li>If your name is pulled in <strong>year 3</strong>: you collected $80 × 3 = $240 in coupons, then receive $1,000 in year 3 → bond dead. Years 4–10: nothing.</li>
@@ -2653,9 +2653,79 @@ Price per share = Equity value / Shares
     <p class="muted"><strong>Note:</strong> moneyness is about <em>intrinsic value only</em>, not the premium. An OTM option still has positive premium because it has time value (positive chance of moving ITM before expiration) — but its intrinsic value is $0.</p>
   </div>
 
-  <!-- 7 · Exam traps -->
+  <!-- 7 · More balance-price drills -->
   <div class="card">
-    <h3>7 · Exam traps (pulled from past finals)</h3>
+    <h3>7 · More balance-price drills (from past quizzes)</h3>
+    <p>Four extra worked problems pulled directly from the deck (slides 21–24). Same mechanics as §3 and §4 — just different parameters. The first one (XY Co) is the only example in the entire deck where the investor <strong>writes</strong> the option instead of buying it, so the <em>writer</em> column is what's being asked.</p>
+
+    <h4 style="color:var(--bad)">7a · XY Co — Put WRITER (slide 21)  ⚠ unusual framing</h4>
+    <p><strong>Setup:</strong> Spot = $100, Strike = $100, Premium = $4. The investor <strong>SELLS the put</strong> — so he is the <strong>writer</strong>, not the buyer. The "Writer G/L" column is the investor's outcome.</p>
+    <p><strong>Breakeven (both sides):</strong> Strike − Premium = $100 − $4 = <strong>$96</strong>.</p>
+    <table class="tbl">
+      <tr><th>Case</th><th>MP</th><th>Strike</th><th>Premium</th><th>Exercise?</th><th>V<sub>put</sub></th><th>Buyer G/L</th><th>Writer G/L (the investor)</th></tr>
+      <tr><td>1</td><td>$40</td><td>$100</td><td>$4</td><td>YES</td><td>$60</td><td style="color:var(--good)">+$56</td><td style="color:var(--bad)">−$56</td></tr>
+      <tr><td>2</td><td>$45</td><td>$100</td><td>$4</td><td>YES</td><td>$55</td><td style="color:var(--good)">+$51</td><td style="color:var(--bad)">−$51</td></tr>
+      <tr><td>3</td><td>$50</td><td>$100</td><td>$4</td><td>YES</td><td>$50</td><td style="color:var(--good)">+$46</td><td style="color:var(--bad)">−$46</td></tr>
+      <tr style="background:rgba(124,92,255,.15)"><td><strong>4</strong></td><td><strong>$96</strong></td><td><strong>$100</strong></td><td><strong>$4</strong></td><td><strong>YES</strong></td><td><strong>$4</strong></td><td><strong>$0 (BREAKEVEN)</strong></td><td><strong>$0 (BREAKEVEN)</strong></td></tr>
+      <tr><td>5</td><td>$100</td><td>$100</td><td>$4</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$4</td><td style="color:var(--good)">+$4 (max gain)</td></tr>
+      <tr><td>6</td><td>$104</td><td>$100</td><td>$4</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$4</td><td style="color:var(--good)">+$4 (max gain)</td></tr>
+      <tr><td>7</td><td>$110</td><td>$100</td><td>$4</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$4</td><td style="color:var(--good)">+$4 (max gain)</td></tr>
+      <tr><td>8</td><td>$120</td><td>$100</td><td>$4</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$4</td><td style="color:var(--good)">+$4 (max gain)</td></tr>
+    </table>
+    <p><strong>Investor's max gain (as writer):</strong> +$4 (the collected premium when MP ≥ $100 — option expires worthless, writer keeps the cash).<br>
+    <strong>Investor's max loss (as writer):</strong> If MP collapses to $0, writer loses Strike − Premium = $96. Capped because stock can't go below $0 (unlike a naked call writer, whose loss is unlimited).</p>
+
+    <h4>7b · EL-EZZ Co — Call buyer (slide 22)</h4>
+    <p><strong>Setup:</strong> Spot = $200, Strike = $200, Premium = $8. Investor BUYS a call (expects rise).</p>
+    <p><strong>Breakeven:</strong> Strike + Premium = $200 + $8 = <strong>$208</strong>.</p>
+    <table class="tbl">
+      <tr><th>Case</th><th>MP</th><th>Strike</th><th>Premium</th><th>Exercise?</th><th>V<sub>call</sub></th><th>Buyer G/L</th><th>Writer G/L</th></tr>
+      <tr><td>1</td><td>$240</td><td>$200</td><td>$8</td><td>YES</td><td>$40</td><td style="color:var(--good)">+$32</td><td style="color:var(--bad)">−$32</td></tr>
+      <tr><td>2</td><td>$220</td><td>$200</td><td>$8</td><td>YES</td><td>$20</td><td style="color:var(--good)">+$12</td><td style="color:var(--bad)">−$12</td></tr>
+      <tr style="background:rgba(124,92,255,.15)"><td><strong>3</strong></td><td><strong>$208</strong></td><td><strong>$200</strong></td><td><strong>$8</strong></td><td><strong>YES</strong></td><td><strong>$8</strong></td><td><strong>$0 (BREAKEVEN)</strong></td><td><strong>$0 (BREAKEVEN)</strong></td></tr>
+      <tr><td>4</td><td>$192</td><td>$200</td><td>$8</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$8 (max loss)</td><td style="color:var(--good)">+$8 (max gain)</td></tr>
+      <tr><td>5</td><td>$140</td><td>$200</td><td>$8</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$8</td><td style="color:var(--good)">+$8</td></tr>
+      <tr><td>6</td><td>$130</td><td>$200</td><td>$8</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$8</td><td style="color:var(--good)">+$8</td></tr>
+      <tr><td>7</td><td>$120</td><td>$200</td><td>$8</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$8</td><td style="color:var(--good)">+$8</td></tr>
+      <tr><td>8</td><td>$110</td><td>$200</td><td>$8</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$8</td><td style="color:var(--good)">+$8</td></tr>
+    </table>
+
+    <h4>7c · SABIC — Call buyer (slide 23)</h4>
+    <p><strong>Setup:</strong> Spot = $100, Strike = $100, Premium = $4. Investor BUYS a call.</p>
+    <p><strong>Breakeven:</strong> Strike + Premium = $100 + $4 = <strong>$104</strong>.</p>
+    <table class="tbl">
+      <tr><th>Case</th><th>MP</th><th>Strike</th><th>Premium</th><th>Exercise?</th><th>V<sub>call</sub></th><th>Buyer G/L</th><th>Writer G/L</th></tr>
+      <tr><td>1</td><td>$120</td><td>$100</td><td>$4</td><td>YES</td><td>$20</td><td style="color:var(--good)">+$16</td><td style="color:var(--bad)">−$16</td></tr>
+      <tr><td>2</td><td>$110</td><td>$100</td><td>$4</td><td>YES</td><td>$10</td><td style="color:var(--good)">+$6</td><td style="color:var(--bad)">−$6</td></tr>
+      <tr style="background:rgba(124,92,255,.15)"><td><strong>3</strong></td><td><strong>$104</strong></td><td><strong>$100</strong></td><td><strong>$4</strong></td><td><strong>YES</strong></td><td><strong>$4</strong></td><td><strong>$0 (BREAKEVEN)</strong></td><td><strong>$0 (BREAKEVEN)</strong></td></tr>
+      <tr><td>4</td><td>$100</td><td>$100</td><td>$4</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$4 (max loss)</td><td style="color:var(--good)">+$4 (max gain)</td></tr>
+      <tr><td>5</td><td>$96</td><td>$100</td><td>$4</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$4</td><td style="color:var(--good)">+$4</td></tr>
+      <tr><td>6</td><td>$50</td><td>$100</td><td>$4</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$4</td><td style="color:var(--good)">+$4</td></tr>
+      <tr><td>7</td><td>$40</td><td>$100</td><td>$4</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$4</td><td style="color:var(--good)">+$4</td></tr>
+    </table>
+
+    <h4>7d · ARAMCO — Put buyer (slide 24)</h4>
+    <p><strong>Setup:</strong> Spot = $200, Strike = $200, Premium = $5. Investor BUYS a put (expects decline).</p>
+    <p><strong>Breakeven:</strong> Strike − Premium = $200 − $5 = <strong>$195</strong>.</p>
+    <table class="tbl">
+      <tr><th>Case</th><th>MP</th><th>Strike</th><th>Premium</th><th>Exercise?</th><th>V<sub>put</sub></th><th>Buyer G/L</th><th>Writer G/L</th></tr>
+      <tr><td>1</td><td>$140</td><td>$200</td><td>$5</td><td>YES</td><td>$60</td><td style="color:var(--good)">+$55</td><td style="color:var(--bad)">−$55</td></tr>
+      <tr><td>2</td><td>$150</td><td>$200</td><td>$5</td><td>YES</td><td>$50</td><td style="color:var(--good)">+$45</td><td style="color:var(--bad)">−$45</td></tr>
+      <tr style="background:rgba(124,92,255,.15)"><td><strong>3</strong></td><td><strong>$195</strong></td><td><strong>$200</strong></td><td><strong>$5</strong></td><td><strong>YES</strong></td><td><strong>$5</strong></td><td><strong>$0 (BREAKEVEN)</strong></td><td><strong>$0 (BREAKEVEN)</strong></td></tr>
+      <tr><td>4</td><td>$198</td><td>$200</td><td>$5</td><td>YES</td><td>$2</td><td style="color:var(--bad)">−$3</td><td style="color:var(--good)">+$3</td></tr>
+      <tr><td>5</td><td>$200</td><td>$200</td><td>$5</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$5 (max loss)</td><td style="color:var(--good)">+$5 (max gain)</td></tr>
+      <tr><td>6</td><td>$205</td><td>$200</td><td>$5</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$5</td><td style="color:var(--good)">+$5</td></tr>
+      <tr><td>7</td><td>$210</td><td>$200</td><td>$5</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$5</td><td style="color:var(--good)">+$5</td></tr>
+      <tr><td>8</td><td>$220</td><td>$200</td><td>$5</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$5</td><td style="color:var(--good)">+$5</td></tr>
+      <tr><td>9</td><td>$250</td><td>$200</td><td>$5</td><td>NO</td><td>$0</td><td style="color:var(--bad)">−$5</td><td style="color:var(--good)">+$5</td></tr>
+    </table>
+
+    <p class="muted"><strong>Pattern shortcut:</strong> for ATM options (Strike = Spot), breakeven sits exactly Strike ± Premium — Strike + Premium for calls, Strike − Premium for puts. Any MP past breakeven (in the favorable direction) means the buyer profits; anywhere else, the buyer's loss is capped at −Premium. Writer's outcome is always the mirror image.</p>
+  </div>
+
+  <!-- 8 · Exam traps -->
+  <div class="card">
+    <h3>8 · Exam traps (pulled from past finals)</h3>
     <p>Patterns that actually appear on the exam:</p>
 
     <ol>
@@ -2672,9 +2742,9 @@ Price per share = Equity value / Shares
     </ol>
   </div>
 
-  <!-- 8 · Interactive widget -->
+  <!-- 9 · Interactive widget -->
   <div class="card">
-    <h3>8 · Interactive payoff explorer — play with it</h3>
+    <h3>9 · Interactive payoff explorer — play with it</h3>
     <p>Set the parameters and watch the payoff diagram redraw. Confirm by hand that the breakeven matches the formulas from §3d and §4c.</p>
 
     <p><strong>Try these experiments:</strong></p>
@@ -2722,9 +2792,9 @@ Price per share = Equity value / Shares
     </div>
   </div>
 
-  <!-- 9 · Flashcards -->
+  <!-- 10 · Flashcards -->
   <div class="card">
-    <h3>9 · Quick-recall flashcards</h3>
+    <h3>10 · Quick-recall flashcards</h3>
     <p class="muted">Click each card to reveal the answer.</p>
 
     <details class="fc"><summary>What is an option?</summary>
@@ -3290,7 +3360,8 @@ E[R_p] = 0.50 × 12.5%  +  0.50 × 20%
 β_B  = |Cov(B,M)| / σ²_M    (using the magnitude per the course convention)
      = 0.0012 / 0.00022
      = 5.45</div>
-      <p>Course convention: use the magnitude of covariance when computing β here. Stock B's β = 5.45 — extremely sensitive to the market (much more volatile than market itself).</p>
+      <div class="callout"><strong>Slide convention vs. pure math — read this once.</strong> Cov(B,M) = <strong>−0.0012</strong> (negative — Stock B and the market move in <em>opposite</em> directions). Strict math says β_B = −0.0012 / 0.00022 = <strong>−5.45</strong>. The deck (and the exam key) drops the sign and uses |Cov|, giving β_B = +5.45. We follow the deck convention so that K_B = 29.8% (§9a) and α_B = −9.8% (§9b) match the answer key. If a question asks for β purely from the formula, the mathematically-correct answer is −5.45; if it follows the slide convention, +5.45. Both readings have been seen — but the deck's worked answer downstream uses +5.45.</div>
+      <p>Stock B's β = 5.45 (per slide convention) — extremely sensitive to the market.</p>
     </div>
   </div>
 
@@ -3312,6 +3383,7 @@ E[R_p] = 0.50 × 12.5%  +  0.50 × 20%
     </ul>
 
     <h4>9a · Required returns (using K<sub>RF</sub> = 8%, K<sub>M</sub> = 12%)</h4>
+    <div class="callout"><strong>Wait — didn't §8a give E[R]<sub>M</sub> = 10%?</strong> Yes. The deck switches notation here. In §8a the 10% was the market's <em>expected</em> return computed from a probability distribution. In this CAPM step the slides plug in K<sub>M</sub> = 12% as the <em>required</em> market return for the example (taken as given). Both numbers are slide-printed in different roles. We use the deck's K<sub>M</sub> = 12% in the K<sub>i</sub> formula so the worked answers (K_A = 13.46%, K_B = 29.8%, α_A = −0.96%, α_B = −9.8%) match the exam key.</div>
     <div class="example">
       <h5>Stock A's required return</h5>
       <div class="step">K_A = 8% + 1.364 × (12% − 8%)
